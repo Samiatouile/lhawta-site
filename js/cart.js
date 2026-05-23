@@ -87,7 +87,7 @@ function buildInstagramMessage() {
     `• ${item.reference} — ${item.name} (Taille ${item.size}) — ${item.price} DH`
   ).join('\n');
   const total = getCartTotal();
-  return `Salam Lhawta 👋\n\nJe veux commander :\n${lines}\n\nTotal : ${total} DH\n\nMerci !`;
+  return `Salam Lhawta 👋\n\nJe veux commander :\n${lines}\n\nTotal : ${total} DH\n\nMa ville : (à compléter)\nMode de paiement préféré : (cash à la livraison si Casa / virement si hors Casa)\n\nMerci !`;
 }
 
 function openInstagramOrder() {
