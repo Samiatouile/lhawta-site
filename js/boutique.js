@@ -65,6 +65,26 @@ function render() {
   els.noResults.hidden = list.length > 0;
 }
 
+function initBudgetSlider() {
+  if (!els.budget || !els.budgetVal) return;
+  if (typeof PRODUCTS === 'undefined' || !Array.isArray(PRODUCTS)) return;
+
+  const maxPrice = Math.max(...PRODUCTS.map(p => p.price));
+  const minPrice = Math.min(...PRODUCTS.map(p => p.price));
+
+  const roundedMax = Math.ceil(maxPrice / 10) * 10;
+  const roundedMin = Math.floor(minPrice / 10) * 10;
+
+  const step = (roundedMax - roundedMin) > 500 ? 50 : 10;
+
+  els.budget.min = roundedMin;
+  els.budget.max = roundedMax;
+  els.budget.step = step;
+  els.budget.value = roundedMax;
+
+  els.budgetVal.textContent = roundedMax;
+}
+
 function bindEvents() {
   els.category.addEventListener('change', render);
   els.size.addEventListener('change', render);
@@ -77,13 +97,16 @@ function bindEvents() {
     els.category.value = 'all';
     els.size.value = 'all';
     els.status.value = 'all';
-    els.budget.value = 500;
-    els.budgetVal.textContent = '500';
+    const maxPrice = Math.max(...PRODUCTS.map(p => p.price));
+    const roundedMax = Math.ceil(maxPrice / 10) * 10;
+    els.budget.value = roundedMax;
+    els.budgetVal.textContent = roundedMax;
     render();
   });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initBudgetSlider();
   bindEvents();
   render();
 });
