@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon panier — Lhawta | الهَوتة</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        Lhawta <span class="logo-ar">| الهَوتة</span>
+      </a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="boutique.html">Boutique</a>
+        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener" class="nav-ig">Instagram</a>
+      </nav>
+      <a href="panier.html" class="cart-btn" aria-label="Voir le panier">
+        🛒 <span class="cart-count">0</span>
+      </a>
+      <button class="burger" aria-label="Menu" onclick="document.querySelector('.main-nav').classList.toggle('open')">☰</button>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <div class="container">
+      <h1>Mon panier</h1>
+      <p>Vérifie tes pièces avant d'envoyer ta commande sur Instagram.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div id="empty-cart" class="empty-cart" hidden>
+        <div class="empty-cart-icon">🛒</div>
+        <h2>Ton panier est vide</h2>
+        <p class="muted">Va faire un tour à la boutique pour ajouter des pièces.</p>
+        <a href="boutique.html" class="btn btn-primary btn-large">Voir la boutique</a>
+      </div>
+
+      <div id="filled-cart" class="cart-layout" hidden>
+        <div class="cart-items" id="cart-items"></div>
+        <aside class="cart-summary">
+          <h2>Récap</h2>
+          <div class="summary-row">
+            <span>Articles</span>
+            <span id="summary-count">0</span>
+          </div>
+          <div class="summary-row summary-total">
+            <span>Total</span>
+            <span id="summary-total">0 DH</span>
+          </div>
+          <p class="small muted">Livraison à confirmer en DM selon ta ville.</p>
+          <button class="btn btn-primary btn-large btn-block" onclick="openInstagramOrder()">
+            📩 Commander sur Instagram
+          </button>
+          <button class="btn btn-outline btn-block" onclick="if(confirm('Vider le panier ?')) clearCart()">
+            Vider le panier
+          </button>
+          <details class="message-preview">
+            <summary>Aperçu du message DM</summary>
+            <pre id="message-preview-text"></pre>
+          </details>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="logo">Lhawta <span class="logo-ar">| الهَوتة</span></p>
+        <p class="muted">Casablanca · Neuf & seconde main</p>
+      </div>
+      <div class="footer-links">
+        <a href="boutique.html">Boutique</a>
+        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="muted small">© 2026 Lhawta. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    function renderCartPage() {
+      const cart = getCart();
+      const empty = document.getElementById('empty-cart');
+      const filled = document.getElementById('filled-cart');
+      if (cart.length === 0) {
+        empty.hidden = false;
+        filled.hidden = true;
+        return;
+      }
+      empty.hidden = true;
+      filled.hidden = false;
+      const list = document.getElementById('cart-items');
+      list.innerHTML = cart.map(item => `
+        <article class="cart-item">
+          <img src="${item.image}" alt="${item.name}" />
+          <div class="cart-item-info">
+            <h3>${item.name}</h3>
+            <p class="muted small">${item.reference} · Taille ${item.size}</p>
+            <p class="cart-item-price">${item.price} DH</p>
+          </div>
+          <button class="cart-remove" onclick="removeFromCart(${item.id})" aria-label="Retirer">✕</button>
+        </article>
+      `).join('');
+      document.getElementById('summary-count').textContent = cart.length;
+      document.getElementById('summary-total').textContent = getCartTotal() + ' DH';
+      document.getElementById('message-preview-text').textContent = buildInstagramMessage();
+    }
+    document.addEventListener('DOMContentLoaded', renderCartPage);
+  </script>
+</body>
+</html>
