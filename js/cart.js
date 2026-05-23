@@ -150,11 +150,72 @@ function orderInstagram(zone) {
     showToast('Zone de livraison invalide');
     return;
   }
+  showOrderModal(zone);
+}
+
+function showOrderModal(zone) {
+  const existing = document.getElementById('lhw-modal');
+  if (existing) existing.remove();
+
+  const shipping = SHIPPING[zone];
+  const subtotal = getCartSubtotal();
+  const shipPrice = getShippingPrice(zone);
+  const total = subtotal + shipPrice;
   const message = buildInstagramMessage(zone);
-  navigator.clipboard.writeText(message).then(() => {
-    showToast('✓ Message copié ! Colle-le dans le DM');
-  }).catch(() => {});
-  window.open(`https://ig.me/m/${IG_USERNAME}`, '_blank');
+  const shipDisplay = shipPrice === 0 ? '🎁 GRATUITE' : `${shipPrice} DH`;
+
+  const modal = document.createElement('div');
+  modal.id = 'lhw-modal';
+  modal.className = 'lhw-modal';
+  modal.innerHTML = `
+    <div class="lhw-modal-backdrop"></div>
+    <div class="lhw-modal-box" role="dialog" aria-modal="true">
+      <button class="lhw-modal-close" aria-label="Fermer">✕</button>
+      <h2>Commande à ${shipping.label}</h2>
+      <div class="lhw-modal-totals">
+        <div class="lhw-totals-row"><span>Sous-total</span><span>${subtotal} DH</span></div>
+        <div class="lhw-totals-row"><span>Livraison (${shipping.label})</span><span>${shipDisplay}</span></div>
+        <div class="lhw-totals-row lhw-totals-grand"><span>TOTAL</span><span>${total} DH</span></div>
+      </div>
+      <ol class="lhw-modal-steps">
+        <li><strong>Copie</strong> le message ci-dessous</li>
+        <li><strong>Ouvre</strong> Instagram</li>
+        <li><strong>Colle</strong> dans le DM et envoie</li>
+      </ol>
+      <pre class="lhw-modal-message" id="lhw-modal-msg"></pre>
+      <div class="lhw-modal-actions">
+        <button class="btn btn-outline btn-block" id="lhw-modal-copy">📋 Copier le message</button>
+        <button class="btn btn-primary btn-block" id="lhw-modal-open">📩 Ouvrir Instagram</button>
+      </div>
+      <p class="lhw-modal-hint small muted">⚠️ Instagram n'autorise pas l'envoi automatique. Une fois sur le DM, fais "Coller" (appui long sur mobile, Cmd/Ctrl+V sur desktop) puis Envoie.</p>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  document.getElementById('lhw-modal-msg').textContent = message;
+
+  navigator.clipboard.writeText(message).catch(() => {});
+
+  const close = () => modal.remove();
+  modal.querySelector('.lhw-modal-close').addEventListener('click', close);
+  modal.querySelector('.lhw-modal-backdrop').addEventListener('click', close);
+
+  document.getElementById('lhw-modal-copy').addEventListener('click', () => {
+    navigator.clipboard.writeText(message).then(() => {
+      showToast('✓ Message copié dans le presse-papier');
+    }).catch(() => {
+      const pre = document.getElementById('lhw-modal-msg');
+      const range = document.createRange();
+      range.selectNode(pre);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      showToast('Sélectionne le texte et fais Cmd/Ctrl + C');
+    });
+  });
+
+  document.getElementById('lhw-modal-open').addEventListener('click', () => {
+    window.open(`https://ig.me/m/${IG_USERNAME}`, '_blank');
+  });
 }
 
 document.addEventListener('DOMContentLoaded', updateCartBadge);
