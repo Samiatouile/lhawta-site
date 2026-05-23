@@ -14,7 +14,7 @@ const COUNTRIES = {
   FR: { code: 'FR', flag: '🇫🇷', name_fr: 'France',         name_en: 'France',        currency: 'EUR', locale: 'fr' },
   BE: { code: 'BE', flag: '🇧🇪', name_fr: 'Belgique',       name_en: 'Belgium',       currency: 'EUR', locale: 'fr' },
   CA: { code: 'CA', flag: '🇨🇦', name_fr: 'Canada',         name_en: 'Canada',        currency: 'CAD', locale: 'fr' },
-  XX: { code: 'XX', flag: '🌍', name_fr: 'International',   name_en: 'International', currency: 'EUR', locale: 'en' }
+  XX: { code: 'XX', flag: '🌍', name_fr: 'International',   name_en: 'International', currency: 'USD', locale: 'en' }
 };
 
 const CURRENCIES = {
@@ -600,13 +600,19 @@ function openCountryPicker() {
 
 /* ---------- Init ---------- */
 async function initI18n() {
+  // Allow forcing re-detection via URL: ?reset-country=1
+  if (location.search.indexOf('reset-country=1') !== -1) {
+    localStorage.removeItem(STORAGE_COUNTRY_KEY);
+    localStorage.removeItem(STORAGE_LOCALE_KEY);
+  }
+
   applyTranslations();
   refreshAllPrices();
   refreshSelectors();
 
   if (!getStoredCountry()) {
     const detected = await detectCountryByIP();
-    if (detected && detected !== 'MA') {
+    if (detected) {
       showDetectionBanner(detected);
     } else {
       setCountry('MA');
