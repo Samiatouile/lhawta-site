@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>Mon panier — Lhawta | الهَوتة</title>
-  <link rel="stylesheet" href="css/style.css?v=20260524" />
+  <link rel="stylesheet" href="css/style.css?v=20260525" />
 </head>
 <body>
   <header class="site-header">
@@ -50,27 +50,62 @@
         <div class="cart-items" id="cart-items"></div>
         <aside class="cart-summary">
           <h2>Récap</h2>
+
           <div class="summary-row">
             <span>Articles</span>
             <span id="summary-count">0</span>
           </div>
-          <div class="summary-row summary-total">
-            <span>Total</span>
-            <span id="summary-total">0 DH</span>
+
+          <div class="summary-row summary-subtotal">
+            <span>Sous-total</span>
+            <span id="summary-subtotal">0 DH</span>
           </div>
-          <p class="small muted">
-            ⚡ Expédition 48h<br>
-            💳 Paiement à la livraison sur Casa, à l'avance hors Casa<br>
-            <a href="livraison.html" style="text-decoration:underline;">Voir les détails</a>
+
+          <!-- Barre de progression livraison gratuite -->
+          <div class="free-shipping-progress" id="free-shipping-progress">
+            <div class="fsp-text" id="fsp-text"></div>
+            <div class="fsp-bar">
+              <div class="fsp-bar-fill" id="fsp-bar-fill"></div>
+            </div>
+          </div>
+
+          <p class="small muted" style="margin: 8px 0 4px; text-align:center;">
+            👇 Choisis ta zone pour finaliser
           </p>
-          <button class="btn btn-primary btn-large btn-block" onclick="openInstagramOrder()">
-            📩 Commander sur Instagram
+
+          <!-- 2 boutons commander -->
+          <button class="btn-order-zone btn-order-casa" onclick="orderInstagram('casa')">
+            <span class="order-zone-icon">📍</span>
+            <span class="order-zone-content">
+              <strong>Commander à Casablanca</strong>
+              <span class="order-zone-detail" id="detail-casa">
+                Livraison +20 DH · Cash à la livraison
+              </span>
+              <span class="order-zone-total" id="total-casa">Total : 0 DH</span>
+            </span>
           </button>
-          <button class="btn btn-outline btn-block" onclick="if(confirm('Vider le panier ?')) clearCart()">
+
+          <button class="btn-order-zone btn-order-hors" onclick="orderInstagram('hors_casa')">
+            <span class="order-zone-icon">🚛</span>
+            <span class="order-zone-content">
+              <strong>Commander hors Casablanca</strong>
+              <span class="order-zone-detail" id="detail-hors">
+                Livraison +50 DH · Paiement à l'avance
+              </span>
+              <span class="order-zone-total" id="total-hors">Total : 0 DH</span>
+            </span>
+          </button>
+
+          <p class="small muted" style="text-align:center; margin: 14px 0 4px;">
+            Le message sera copié et Instagram s'ouvrira ✨
+          </p>
+
+          <button class="btn btn-outline btn-block" onclick="if(confirm('Vider le panier ?')) clearCart()" style="margin-top: 10px;">
             Vider le panier
           </button>
+
           <details class="message-preview">
-            <summary>Aperçu du message DM</summary>
+            <summary>Aperçu du message DM (Casa)</summary>
             <pre id="message-preview-text"></pre>
           </details>
         </aside>
@@ -81,10 +116,10 @@
   <section class="trust-banner">
     <div class="container trust-banner-inner">
       <a href="livraison.html" class="trust-item">
-        <div class="trust-icon">⚡</div>
+        <div class="trust-icon">🎁</div>
         <div class="trust-text">
-          <strong>Expédition rapide</strong>
-          <span>Sous 48h partout au Maroc</span>
+          <strong>Livraison offerte dès 500 DH</strong>
+          <span>Expédition 48h partout au Maroc</span>
         </div>
       </a>
       <a href="livraison.html" class="trust-item">
@@ -121,20 +156,23 @@
     </div>
   </footer>
 
-  <script src="js/products.js?v=20260524"></script>
-  <script src="js/cart.js?v=20260524"></script>
+  <script src="js/products.js?v=20260525"></script>
+  <script src="js/cart.js?v=20260525"></script>
   <script>
     function renderCartPage() {
       const cart = getCart();
       const empty = document.getElementById('empty-cart');
       const filled = document.getElementById('filled-cart');
+
       if (cart.length === 0) {
         empty.hidden = false;
         filled.hidden = true;
         return;
       }
+
       empty.hidden = true;
       filled.hidden = false;
+
       const list = document.getElementById('cart-items');
       list.innerHTML = cart.map(item => `
         <article class="cart-item">
@@ -147,9 +185,49 @@
           <button class="cart-remove" onclick="removeFromCart(${item.id})" aria-label="Retirer">✕</button>
         </article>
       `).join('');
+
+      const subtotal = getCartSubtotal();
       document.getElementById('summary-count').textContent = cart.length;
-      document.getElementById('summary-total').textContent = getCartTotal() + ' DH';
-      document.getElementById('message-preview-text').textContent = buildInstagramMessage();
+      document.getElementById('summary-subtotal').textContent = subtotal + ' DH';
+
+      const remaining = getRemainingForFreeShipping();
+      const fillPct = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
+      const fspText = document.getElementById('fsp-text');
+      const fspFill = document.getElementById('fsp-bar-fill');
+      const fspBox  = document.getElementById('free-shipping-progress');
+
+      if (isFreeShipping()) {
+        fspBox.classList.add('fsp-achieved');
+        fspText.innerHTML = '🎁 <strong>Livraison GRATUITE débloquée !</strong>';
+        fspFill.style.width = '100%';
+      } else {
+        fspBox.classList.remove('fsp-achieved');
+        fspText.innerHTML = `Plus que <strong>${remaining} DH</strong> pour la livraison gratuite 🎁`;
+        fspFill.style.width = fillPct + '%';
+      }
+
+      const casaShip = getShippingPrice('casa');
+      const horsShip = getShippingPrice('hors_casa');
+      const casaTotal = subtotal + casaShip;
+      const horsTotal = subtotal + horsShip;
+
+      document.getElementById('total-casa').textContent = `Total : ${casaTotal} DH`;
+      document.getElementById('total-hors').textContent = `Total : ${horsTotal} DH`;
+
+      if (isFreeShipping()) {
+        document.getElementById('detail-casa').innerHTML =
+          '🎁 Livraison GRATUITE · Cash à la livraison';
+        document.getElementById('detail-hors').innerHTML =
+          '🎁 Livraison GRATUITE · Paiement à l\'avance';
+      } else {
+        document.getElementById('detail-casa').textContent =
+          'Livraison +20 DH · Cash à la livraison';
+        document.getElementById('detail-hors').textContent =
+          'Livraison +50 DH · Paiement à l\'avance';
+      }
+
+      document.getElementById('message-preview-text').textContent =
+        buildInstagramMessage('casa');
     }
     document.addEventListener('DOMContentLoaded', renderCartPage);
   </script>
