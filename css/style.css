@@ -5,26 +5,42 @@
 
 /* ---------- Variables ---------- */
 :root {
-  --color-bg: #f5f0e6;          /* fond crème */
-  --color-bg-alt: #ede5d4;      /* beige plus marqué */
-  --color-card: #ffffff;
-  --color-text: #1a1a1a;
-  --color-muted: #6b6b6b;
-  --color-accent: #6b7a3a;      /* vert olive */
-  --color-accent-dark: #4f5b2a;
-  --color-brown: #5b3a22;       /* marron accent */
-  --color-border: #e2dccd;
-  --color-danger: #b94343;
+  /* ===== Palette Lhawta v2 — jaune néon + noir ===== */
+  --color-bg:          #FAF6E8;    /* fond crème pour pages shopping */
+  --color-bg-dark:     #000000;    /* fond noir pour pages dark */
+  --color-bg-alt:      #F2EDDD;    /* crème un peu plus marqué */
+  --color-bg-section:  #1A1A1A;    /* sections noires alternées */
+  --color-card:        #FFFFFF;    /* carte sur fond clair */
+  --color-card-dark:   #1A1A1A;    /* carte sur fond noir */
+  --color-text:        #1A1A1A;    /* texte sur fond clair */
+  --color-text-light:  #FFFFFF;    /* texte sur fond noir */
+  --color-muted:       #888888;    /* texte secondaire */
+  --color-muted-dark:  #AAAAAA;    /* texte secondaire sur noir */
 
+  /* ===== Accents jaunes ===== */
+  --color-accent:      #F5E13A;    /* jaune néon principal */
+  --color-accent-dark: #E8C530;    /* jaune doré secondaire */
+  --color-accent-glow: rgba(245, 225, 58, 0.5); /* halo glow */
+
+  /* ===== Couleurs fonctionnelles ===== */
+  --color-border:      #E2DCCD;    /* bordure sur clair */
+  --color-border-dark: #333333;    /* bordure sur noir */
+  --color-danger:      #B94343;
+  --color-success:     #6BAA45;
+
+  /* ===== Rayons ===== */
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 20px;
 
-  --shadow-sm: 0 2px 8px rgba(0,0,0,.05);
-  --shadow-md: 0 8px 24px rgba(0,0,0,.08);
+  /* ===== Ombres ===== */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 20px var(--color-accent-glow);
 
-  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --font-display: "Inter", "Helvetica Neue", Arial, sans-serif;
+  /* ===== Typographie ===== */
+  --font-sans:    "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Anton", "Helvetica Neue", sans-serif;
 
   --container-max: 1200px;
 }
@@ -1635,4 +1651,486 @@ body {
     flex-direction: column-reverse;
   }
   .review-form-actions .btn { width: 100%; }
+}
+
+/* =========================================================
+   LHAWTA v2 — Theme dark/light + nouveau header logo
+   ========================================================= */
+
+/* ---------- Body theme dark ---------- */
+body.theme-dark {
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
+}
+body.theme-dark .container {
+  color: inherit;
+}
+
+/* ---------- Header (toujours noir, partout) ---------- */
+.site-header {
+  background: #000000 !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1px solid var(--color-border-dark);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-header .main-nav a {
+  color: var(--color-text-light);
+}
+.site-header .main-nav a:hover {
+  color: var(--color-accent);
+  text-shadow: 0 0 8px var(--color-accent-glow);
+}
+.site-header .main-nav a.active {
+  color: var(--color-accent);
+}
+.site-header .main-nav a.active::after {
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent-glow);
+}
+.site-header .burger { color: var(--color-text-light); }
+
+/* ---------- Logo (PNG + texte stylisé) ---------- */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.logo-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 6px var(--color-accent-glow));
+  animation: logoPulse 2.4s ease-in-out infinite;
+}
+@keyframes logoPulse {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(245, 225, 58, 0.4)); }
+  50%      { filter: drop-shadow(0 0 12px rgba(245, 225, 58, 0.85)); }
+}
+.logo-text {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  font-style: italic;
+  transform: skewX(-6deg);
+  text-shadow:
+    0 0 6px var(--color-accent-glow),
+    0 0 12px rgba(245, 225, 58, 0.3);
+}
+.logo-ar {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--color-text-light);
+  font-size: .9rem;
+  margin-left: 2px;
+}
+
+/* ---------- Bouton Instagram dans header ---------- */
+.nav-ig {
+  background: var(--color-accent) !important;
+  color: #000000 !important;
+  font-weight: 800;
+  padding: 8px 18px;
+  border-radius: 999px;
+  transition: all .2s;
+}
+.nav-ig:hover {
+  background: var(--color-accent-dark) !important;
+  box-shadow: 0 0 16px var(--color-accent-glow);
+  transform: translateY(-1px);
+}
+
+/* ---------- Cart button dans header ---------- */
+.cart-btn {
+  background: var(--color-bg-section) !important;
+  color: var(--color-text-light) !important;
+}
+.cart-btn:hover {
+  background: var(--color-card-dark) !important;
+  box-shadow: 0 0 12px var(--color-accent-glow);
+}
+
+/* =========================================================
+   THEME DARK — overrides pour pages à fond noir
+   ========================================================= */
+
+body.theme-dark .hero {
+  background:
+    radial-gradient(ellipse at top, rgba(245, 225, 58, 0.08) 0%, transparent 60%),
+    var(--color-bg-dark);
+  color: var(--color-text-light);
+  border-bottom: 1px solid var(--color-border-dark);
+}
+body.theme-dark .hero-title {
+  color: var(--color-text-light);
+  position: relative;
+}
+body.theme-dark .hero-title::after {
+  content: "";
+  display: block;
+  width: 140px;
+  height: 14px;
+  margin: 18px auto 0;
+  background: var(--color-accent);
+  border-radius: 999px;
+  transform: rotate(-1.5deg);
+  box-shadow: 0 0 20px var(--color-accent-glow);
+  opacity: .9;
+}
+body.theme-dark .hero-subtitle {
+  color: var(--color-muted-dark);
+}
+
+body.theme-dark .section { background: transparent; }
+body.theme-dark .section-alt {
+  background: var(--color-bg-section);
+}
+body.theme-dark .section-title,
+body.theme-dark .section-subtitle {
+  color: var(--color-text-light);
+}
+body.theme-dark .section-subtitle { color: var(--color-muted-dark); }
+
+body.theme-dark .feature-card {
+  background: var(--color-card-dark);
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border-dark);
+}
+body.theme-dark .feature-card h3 { color: var(--color-text-light); }
+body.theme-dark .feature-card p  { color: var(--color-muted-dark); }
+body.theme-dark .feature-icon {
+  background: var(--color-accent);
+  color: #000;
+  box-shadow: 0 0 14px var(--color-accent-glow);
+}
+
+body.theme-dark .product-card {
+  background: var(--color-card-dark);
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border-dark);
+}
+body.theme-dark .product-name { color: var(--color-text-light); }
+body.theme-dark .product-meta,
+body.theme-dark .product-condition { color: var(--color-muted-dark); }
+body.theme-dark .product-price { color: var(--color-accent); }
+
+body.theme-dark .page-header {
+  background: var(--color-bg-section);
+  border-bottom: 1px solid var(--color-border-dark);
+}
+body.theme-dark .page-header h1 { color: var(--color-text-light); }
+body.theme-dark .page-header p  { color: var(--color-muted-dark); }
+
+body.theme-dark .cta-ig {
+  background: var(--color-bg-section);
+}
+
+/* =========================================================
+   BOUTONS — Nouvelle palette jaune/noir
+   ========================================================= */
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #000000;
+  font-weight: 700;
+  border: 2px solid var(--color-accent);
+}
+.btn-primary:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  box-shadow: 0 0 16px var(--color-accent-glow);
+  transform: translateY(-1px);
+}
+
+.btn-dark {
+  background: #000000;
+  color: var(--color-accent);
+  border: 2px solid #000000;
+  font-weight: 700;
+}
+.btn-dark:hover {
+  background: #1A1A1A;
+  color: var(--color-accent);
+  box-shadow: 0 0 16px var(--color-accent-glow);
+}
+
+body.theme-dark .btn-outline {
+  background: transparent;
+  color: var(--color-text-light);
+  border: 2px solid var(--color-text-light);
+}
+body.theme-dark .btn-outline:hover {
+  background: var(--color-accent);
+  color: #000;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 16px var(--color-accent-glow);
+}
+
+/* Bouton "Ajouter au panier" */
+.btn-add-cart {
+  background: var(--color-accent) !important;
+  color: #000000 !important;
+  font-weight: 700;
+}
+.btn-add-cart:hover {
+  background: var(--color-accent-dark) !important;
+  box-shadow: 0 0 14px var(--color-accent-glow);
+  transform: translateY(-1px);
+}
+
+/* Boutons commander zone (panier) */
+.btn-order-casa {
+  background: var(--color-accent);
+  color: #000000;
+}
+.btn-order-casa:hover {
+  background: var(--color-accent-dark);
+  box-shadow: 0 0 18px var(--color-accent-glow);
+}
+.btn-order-hors {
+  background: #000000;
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+}
+.btn-order-hors:hover {
+  background: #1A1A1A;
+  box-shadow: 0 0 18px var(--color-accent-glow);
+}
+
+/* =========================================================
+   PROMO BANNER — boutique
+   ========================================================= */
+
+.promo-banner {
+  background: var(--color-accent) !important;
+  color: #000000 !important;
+  font-weight: 700;
+}
+
+/* =========================================================
+   AVIS — Section reviews TOUJOURS en noir
+   ========================================================= */
+
+.lhw-reviews-section {
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
+  border-top: 1px solid var(--color-border-dark);
+}
+.lhw-reviews-title { color: var(--color-text-light); }
+.lhw-reviews-verified { color: var(--color-muted-dark); }
+.lhw-verified-logo {
+  background: var(--color-card-dark);
+  color: var(--color-accent);
+  border-color: var(--color-border-dark);
+}
+.lhw-reviews-summary { color: var(--color-text-light); }
+.lhw-verified-tick {
+  background: var(--color-accent);
+  color: #000;
+}
+.lhw-reviews-bigstars,
+.lhw-review-stars {
+  color: var(--color-accent);
+  text-shadow: 0 0 6px var(--color-accent-glow);
+}
+
+.lhw-badge-icon {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+  outline-color: var(--color-accent);
+  box-shadow: 0 6px 24px var(--color-accent-glow);
+  color: #000;
+  border-color: var(--color-bg-dark);
+}
+.lhw-badge-center .lhw-badge-icon {
+  background: linear-gradient(135deg, #FFE968, #B8941A);
+  outline-color: #FFE968;
+}
+.lhw-badge-label { color: var(--color-text-light); }
+
+.lhw-review-card {
+  background: var(--color-card-dark);
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border-dark);
+}
+.lhw-review-title { color: var(--color-text-light); }
+.lhw-review-text { color: var(--color-muted-dark); }
+.lhw-review-author strong { color: var(--color-text-light); }
+.lhw-review-author span { color: var(--color-muted); }
+.lhw-review-footer { border-top-color: var(--color-border-dark); }
+.lhw-review-avatar {
+  background: var(--color-accent);
+  color: #000;
+}
+
+.lhw-reviews-nav {
+  background: var(--color-card-dark);
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border-dark);
+}
+.lhw-reviews-nav:hover {
+  background: var(--color-accent);
+  color: #000;
+  box-shadow: 0 0 14px var(--color-accent-glow);
+}
+
+.lhw-reviews-cta p { color: var(--color-muted-dark); }
+
+/* =========================================================
+   TRUST BANNER (en bas) — sur fond noir partout
+   ========================================================= */
+
+.trust-banner {
+  background: var(--color-bg-section);
+  border-top: 2px solid var(--color-accent);
+}
+.trust-icon {
+  background: var(--color-accent);
+  color: #000;
+  box-shadow: 0 0 12px var(--color-accent-glow);
+}
+
+/* =========================================================
+   FOOTER — toujours sur fond noir
+   ========================================================= */
+
+.site-footer {
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
+  border-top: 1px solid var(--color-border-dark);
+}
+.site-footer .logo-text { color: var(--color-accent); }
+.site-footer .footer-links a { color: var(--color-text-light); }
+.site-footer .footer-links a:hover {
+  color: var(--color-accent);
+  text-shadow: 0 0 8px var(--color-accent-glow);
+}
+.site-footer .muted { color: var(--color-muted-dark); }
+
+/* =========================================================
+   MODALE AVIS — Theme dark
+   ========================================================= */
+
+.review-modal-card {
+  background: var(--color-card-dark);
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border-dark);
+}
+.review-modal-card h2 { color: var(--color-text-light); }
+.review-modal-close {
+  background: var(--color-bg-section);
+  color: var(--color-text-light);
+}
+.review-modal-close:hover {
+  background: var(--color-accent);
+  color: #000;
+}
+.review-form label { color: var(--color-text-light); }
+.review-form input[type="text"],
+.review-form textarea {
+  background: var(--color-bg-section);
+  color: var(--color-text-light);
+  border-color: var(--color-border-dark);
+}
+.review-form input[type="text"]:focus,
+.review-form textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-glow);
+}
+.rating-input label { color: var(--color-border-dark); }
+.rating-input label:hover,
+.rating-input label:hover ~ label,
+.rating-input input[type="radio"]:checked ~ label {
+  color: var(--color-accent);
+  text-shadow: 0 0 8px var(--color-accent-glow);
+}
+.review-form-actions { border-top-color: var(--color-border-dark); }
+.review-success h3 { color: var(--color-text-light); }
+.review-success p  { color: var(--color-muted-dark); }
+
+/* =========================================================
+   BADGES PRODUIT — adapter sur fond noir
+   ========================================================= */
+
+.badge-ok {
+  background: var(--color-accent);
+  color: #000;
+  font-weight: 800;
+  box-shadow: 0 0 10px var(--color-accent-glow);
+}
+
+/* =========================================================
+   FREE SHIPPING PROGRESS — adapter au theme
+   ========================================================= */
+
+body.theme-dark .free-shipping-progress {
+  background: var(--color-bg-section);
+  border-color: var(--color-border-dark);
+}
+body.theme-dark .free-shipping-progress.fsp-achieved {
+  background: linear-gradient(135deg, rgba(245, 225, 58, 0.15), rgba(245, 225, 58, 0.08));
+  border-color: var(--color-accent);
+}
+body.theme-dark .fsp-text { color: var(--color-text-light); }
+body.theme-dark .fsp-text strong { color: var(--color-accent); }
+body.theme-dark .fsp-bar { background: var(--color-border-dark); }
+.fsp-bar-fill {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-dark));
+}
+
+body.theme-dark .cart-summary {
+  background: var(--color-card-dark);
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border-dark);
+}
+body.theme-dark .summary-row { color: var(--color-text-light); }
+body.theme-dark .cart-item {
+  background: var(--color-card-dark);
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border-dark);
+}
+body.theme-dark .cart-item-info h3 { color: var(--color-text-light); }
+body.theme-dark .cart-remove {
+  background: var(--color-bg-section);
+  color: var(--color-text-light);
+}
+
+/* =========================================================
+   ARTICLES BLOG — Theme dark
+   ========================================================= */
+
+body.theme-dark .article-body { color: var(--color-text-light); }
+body.theme-dark .article-body h2 { color: var(--color-text-light); }
+body.theme-dark .article-body a { color: var(--color-accent); }
+body.theme-dark .article-cta {
+  background: var(--color-bg-section);
+  border: 1px solid var(--color-border-dark);
+}
+body.theme-dark .breadcrumb { color: var(--color-muted-dark); }
+body.theme-dark .breadcrumb a { color: var(--color-muted-dark); }
+body.theme-dark .breadcrumb a:hover { color: var(--color-accent); }
+
+body.theme-dark .blog-card {
+  background: var(--color-card-dark);
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border-dark);
+}
+body.theme-dark .blog-card-title { color: var(--color-text-light); }
+body.theme-dark .blog-excerpt { color: var(--color-muted-dark); }
+body.theme-dark .blog-card-link { color: var(--color-accent); }
+
+/* =========================================================
+   RESPONSIVE — Header logo sur mobile
+   ========================================================= */
+
+@media (max-width: 720px) {
+  .logo-img { width: 36px; height: 36px; }
+  .logo-text { font-size: 1.15rem; }
+  .logo-ar { display: none; }
 }
