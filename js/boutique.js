@@ -33,7 +33,7 @@ function renderProductCard(p) {
         <h3 class="product-name">${p.name}</h3>
         <p class="product-meta">${p.category} · Taille ${p.size}</p>
         <p class="product-condition">${p.condition}</p>
-        <p class="product-price">${p.price} DH</p>
+        <p class="product-price">${typeof formatPrice === 'function' ? formatPrice(p.price) : p.price + ' DH'}</p>
         <div class="product-actions">${action}</div>
       </div>
     </article>

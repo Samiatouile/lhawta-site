@@ -25,13 +25,26 @@
         <span class="logo-ar">| الهَوتة</span>
       </a>
       <nav class="main-nav" aria-label="Navigation principale">
-        <a href="index.html">Accueil</a>
-        <a href="boutique.html">Boutique</a>
-        <a href="trouve-ta-piece.html" class="active">Trouve ta pièce</a>
-        <a href="contact.html">Contact</a>
-        <a href="livraison.html">Livraison</a>
-        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener" class="nav-ig">Instagram</a>
+        <a href="index.html" data-i18n="nav.home">Accueil</a>
+        <a href="boutique.html" data-i18n="nav.shop">Boutique</a>
+        <a href="trouve-ta-piece.html" class="active" data-i18n="nav.find">Trouve ta pièce</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        <a href="livraison.html" data-i18n="nav.shipping">Livraison</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener" class="nav-ig" data-i18n="nav.instagram">Instagram</a>
       </nav>
+      <!-- Sélecteur de pays -->
+      <div class="country-selector">
+        <button class="country-selector-btn" onclick="document.getElementById('country-dropdown').classList.toggle('open')">
+          <span class="country-selector-current">🇲🇦 MAD</span> ▾
+        </button>
+        <div id="country-dropdown" class="country-dropdown">
+          <button class="country-option" data-country="MA" onclick="setCountry('MA'); document.getElementById('country-dropdown').classList.remove('open')">🇲🇦 Maroc (MAD)</button>
+          <button class="country-option" data-country="FR" onclick="setCountry('FR'); document.getElementById('country-dropdown').classList.remove('open')">🇫🇷 France (EUR)</button>
+          <button class="country-option" data-country="BE" onclick="setCountry('BE'); document.getElementById('country-dropdown').classList.remove('open')">🇧🇪 Belgique (EUR)</button>
+          <button class="country-option" data-country="CA" onclick="setCountry('CA'); document.getElementById('country-dropdown').classList.remove('open')">🇨🇦 Canada (CAD)</button>
+          <button class="country-option" data-country="XX" onclick="setCountry('XX'); document.getElementById('country-dropdown').classList.remove('open')">🌍 International (EUR)</button>
+        </div>
+      </div>
       <a href="panier.html" class="cart-btn" aria-label="Voir le panier">🛒 <span class="cart-count">0</span></a>
       <button class="burger" aria-label="Menu" onclick="document.querySelector('.main-nav').classList.toggle('open')">☰</button>
     </div>
@@ -40,8 +53,8 @@
   <!-- ===== PAGE HEADER ===== -->
   <section class="page-header">
     <div class="container">
-      <h1>Trouve ta pièce</h1>
-      <p>Réponds à 5 questions rapides. On te sort les meilleurs matchs de la boutique.</p>
+      <h1 data-i18n="quiz.title">Trouve ta pièce</h1>
+      <p data-i18n="quiz.subtitle">Réponds à 5 questions rapides. On te sort les meilleurs matchs de la boutique.</p>
     </div>
   </section>
 
@@ -53,7 +66,7 @@
 
         <!-- Question 1 : occasion -->
         <fieldset class="quiz-question">
-          <legend><span class="q-num">1</span> Pour quelle occasion tu cherches une pièce ?</legend>
+          <legend><span class="q-num">1</span> <span data-i18n="quiz.q1">Pour quelle occasion tu cherches une pièce ?</span></legend>
           <div class="quiz-options">
             <label><input type="radio" name="occasion" value="quotidien" required /> <span>Quotidien</span></label>
             <label><input type="radio" name="occasion" value="travail" /> <span>Travail / stage</span></label>
@@ -65,7 +78,7 @@
 
         <!-- Question 2 : style -->
         <fieldset class="quiz-question">
-          <legend><span class="q-num">2</span> Quel style tu préfères ?</legend>
+          <legend><span class="q-num">2</span> <span data-i18n="quiz.q2">Quel style tu préfères ?</span></legend>
           <div class="quiz-options">
             <label><input type="radio" name="style" value="vintage" required /> <span>Vintage</span></label>
             <label><input type="radio" name="style" value="streetwear" /> <span>Streetwear</span></label>
@@ -77,7 +90,7 @@
 
         <!-- Question 3 : catégorie -->
         <fieldset class="quiz-question">
-          <legend><span class="q-num">3</span> Quelle catégorie ?</legend>
+          <legend><span class="q-num">3</span> <span data-i18n="quiz.q3">Quelle catégorie ?</span></legend>
           <div class="quiz-options">
             <label><input type="radio" name="category" value="chemise" required /> <span>Chemise</span></label>
             <label><input type="radio" name="category" value="t-shirt" /> <span>T-shirt</span></label>
@@ -90,7 +103,7 @@
 
         <!-- Question 4 : taille -->
         <fieldset class="quiz-question">
-          <legend><span class="q-num">4</span> Quelle taille ?</legend>
+          <legend><span class="q-num">4</span> <span data-i18n="quiz.q4">Quelle taille ?</span></legend>
           <div class="quiz-options">
             <label><input type="radio" name="size" value="S" required /> <span>S</span></label>
             <label><input type="radio" name="size" value="M" /> <span>M</span></label>
@@ -102,7 +115,7 @@
 
         <!-- Question 5 : budget -->
         <fieldset class="quiz-question">
-          <legend><span class="q-num">5</span> Budget maximum ?</legend>
+          <legend><span class="q-num">5</span> <span data-i18n="quiz.q5">Budget maximum ?</span></legend>
           <div class="quiz-options">
             <label><input type="radio" name="budget" value="100" required /> <span>100 DH</span></label>
             <label><input type="radio" name="budget" value="200" /> <span>200 DH</span></label>
@@ -112,8 +125,8 @@
         </fieldset>
 
         <div class="quiz-actions">
-          <button type="submit" class="btn btn-primary btn-large">Voir mes matchs</button>
-          <button type="reset" class="btn btn-outline">Effacer</button>
+          <button type="submit" class="btn btn-primary btn-large" data-i18n="quiz.submit">Voir mes matchs</button>
+          <button type="reset" class="btn btn-outline" data-i18n="quiz.reset">Effacer</button>
         </div>
 
       </form>
@@ -137,22 +150,22 @@
       <a href="livraison.html" class="trust-item">
         <div class="trust-icon">🎁</div>
         <div class="trust-text">
-          <strong>Livraison offerte dès 500 DH</strong>
-          <span>Expédition 48h partout au Maroc</span>
+          <strong data-i18n="trust.shipping.title">Livraison offerte dès 500 DH</strong>
+          <span data-i18n="trust.shipping.subtitle">Expédition 48h partout au Maroc</span>
         </div>
       </a>
       <a href="livraison.html" class="trust-item">
         <div class="trust-icon">💳</div>
         <div class="trust-text">
-          <strong>Hors Casa : paiement à l'avance</strong>
-          <span>Cash à la livraison sur Casablanca</span>
+          <strong data-i18n="trust.payment.title">Hors Casa : paiement à l'avance</strong>
+          <span data-i18n="trust.payment.subtitle">Cash à la livraison sur Casablanca</span>
         </div>
       </a>
       <a href="contact.html" class="trust-item">
         <div class="trust-icon">🤝</div>
         <div class="trust-text">
-          <strong>Service client 7j/7</strong>
-          <span>On répond vite en DM</span>
+          <strong data-i18n="trust.support.title">Service client 7j/7</strong>
+          <span data-i18n="trust.support.subtitle">On répond vite en DM</span>
         </div>
       </a>
     </div>
@@ -183,7 +196,7 @@
       </p>
 
       <div class="lhw-reviews-header">
-        <h2 class="lhw-reviews-title">Laissons nos clients parler pour nous</h2>
+        <h2 class="lhw-reviews-title" data-i18n="reviews.section_title">Laissons nos clients parler pour nous</h2>
         <div class="lhw-reviews-bigrating">
           <div class="lhw-reviews-bigstars">★★★★★</div>
           <p class="lhw-reviews-summary">
@@ -200,10 +213,8 @@
       </div>
 
       <div class="lhw-reviews-cta">
-        <p class="muted">Tu as déjà commandé chez nous ?</p>
-        <button type="button" class="btn btn-primary" onclick="openReviewModal()">
-          ⭐ Laisser un avis
-        </button>
+        <p class="muted" data-i18n="reviews.cta.question">Tu as déjà commandé chez nous ?</p>
+        <button type="button" class="btn btn-primary" onclick="openReviewModal()" data-i18n="reviews.cta.button">⭐ Laisser un avis</button>
       </div>
 
     </div>
@@ -216,19 +227,39 @@
         <span class="logo-text">LHAWTA</span>
         <span class="logo-ar">| الهَوتة</span>
       </p>
-        <p class="muted">Casablanca · Neuf & seconde main</p>
+        <p class="muted" data-i18n="footer.tagline">Casablanca · Neuf & seconde main</p>
       </div>
       <div class="footer-links">
         <a href="boutique.html">Boutique</a>
-        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
+        <a href="trouve-ta-piece.html" data-i18n="nav.find">Trouve ta pièce</a>
         <a href="contact.html">Contact</a>
         <a href="livraison.html">Livraison & Paiement</a>
         <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener">Instagram</a>
       </div>
+      <div class="footer-locale">
+        <div class="footer-locale-block">
+          <span class="muted small">Langue :</span>
+          <button class="locale-option" data-locale="fr-ma" onclick="setLocale('fr-ma')">🇲🇦 FR Maroc</button>
+          <button class="locale-option" data-locale="fr" onclick="setLocale('fr')">🇫🇷 Français</button>
+          <button class="locale-option" data-locale="en" onclick="setLocale('en')">🇬🇧 English</button>
+        </div>
+        <div class="footer-locale-block">
+          <span class="muted small">Pays :</span>
+          <select onchange="setCountry(this.value)" class="footer-country-select">
+            <option value="MA">🇲🇦 Maroc (MAD)</option>
+            <option value="FR">🇫🇷 France (EUR)</option>
+            <option value="BE">🇧🇪 Belgique (EUR)</option>
+            <option value="CA">🇨🇦 Canada (CAD)</option>
+            <option value="XX">🌍 International (EUR)</option>
+          </select>
+        </div>
+      </div>
+
       <p class="muted small">© 2026 Lhawta. Tous droits réservés.</p>
     </div>
   </footer>
 
+  <script src="js/i18n.js?v=20260527"></script>
   <script src="js/products.js?v=20260527"></script>
   <script src="js/cart.js?v=20260527"></script>
   <script src="js/quiz.js?v=20260527"></script>
@@ -238,20 +269,20 @@
     <div class="review-modal-card" role="dialog" aria-labelledby="review-modal-title">
       <button class="review-modal-close" onclick="closeReviewModal()" aria-label="Fermer">✕</button>
 
-      <h2 id="review-modal-title">⭐ Laisse ton avis sur Lhawta</h2>
-      <p class="muted small">Ton avis sera publié instantanément sur le site ✨</p>
+      <h2 id="review-modal-title" data-i18n="reviews.modal.title">⭐ Laisse ton avis sur Lhawta</h2>
+      <p class="muted small" data-i18n="reviews.modal.subtitle">Ton avis sera publié instantanément sur le site ✨</p>
 
       <form id="review-form" class="review-form">
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
         <div class="form-row">
-          <label for="rv-name">Ton prénom *</label>
+          <label for="rv-name" data-i18n="reviews.modal.name">Ton prénom *</label>
           <input type="text" id="rv-name" name="name" required placeholder="Ex: Sara" maxlength="40" />
         </div>
 
         <div class="form-row form-row-2">
           <div>
-            <label for="rv-city">Ta ville *</label>
+            <label for="rv-city" data-i18n="reviews.modal.city">Ta ville *</label>
             <input type="text" id="rv-city" name="city" required placeholder="Casablanca" maxlength="30" />
           </div>
           <div>
@@ -261,7 +292,7 @@
         </div>
 
         <div class="form-row">
-          <label>Ta note *</label>
+          <label data-i18n="reviews.modal.rating">Ta note *</label>
           <div class="rating-input" id="rating-input">
             <input type="radio" name="rating" value="5" id="star5" required />
             <label for="star5" title="5 étoiles">★</label>
@@ -277,12 +308,12 @@
         </div>
 
         <div class="form-row">
-          <label for="rv-title">Titre de ton avis *</label>
+          <label for="rv-title" data-i18n="reviews.modal.review_title">Titre de ton avis *</label>
           <input type="text" id="rv-title" name="title" required placeholder="Ex: Service au top" maxlength="80" />
         </div>
 
         <div class="form-row">
-          <label for="rv-text">Ton message *</label>
+          <label for="rv-text" data-i18n="reviews.modal.message">Ton message *</label>
           <textarea id="rv-text" name="text" rows="4" required placeholder="Raconte ton expérience avec Lhawta..." maxlength="400"></textarea>
           <span class="char-count" id="char-count">0 / 400</span>
         </div>
@@ -293,16 +324,16 @@
         </div>
 
         <div class="review-form-actions">
-          <button type="button" class="btn btn-outline" onclick="closeReviewModal()">Annuler</button>
-          <button type="submit" class="btn btn-primary" id="rv-submit">📤 Envoyer mon avis</button>
+          <button type="button" class="btn btn-outline" onclick="closeReviewModal()" data-i18n="reviews.modal.cancel">Annuler</button>
+          <button type="submit" class="btn btn-primary" id="rv-submit" data-i18n="reviews.modal.submit">📤 Envoyer mon avis</button>
         </div>
       </form>
 
       <div id="review-success" class="review-success" hidden>
         <div class="success-icon">🎉</div>
-        <h3>Merci pour ton avis !</h3>
-        <p>Ton avis est publié sur le site. Tu peux le voir dans la section "Ils nous font confiance".</p>
-        <button class="btn btn-primary btn-block" onclick="closeReviewModal()">Fermer</button>
+        <h3 data-i18n="reviews.success.title">Merci pour ton avis !</h3>
+        <p data-i18n="reviews.success.message">Ton avis est publié sur le site. Tu peux le voir dans la section "Ils nous font confiance".</p>
+        <button class="btn btn-primary btn-block" onclick="closeReviewModal()" data-i18n="reviews.success.close">Fermer</button>
       </div>
     </div>
   </div>

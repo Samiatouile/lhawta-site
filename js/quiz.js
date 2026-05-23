@@ -89,7 +89,7 @@ function renderMatchCard(p, score, reasons) {
       <div class="product-body">
         <h3 class="product-name">${p.name}</h3>
         <p class="product-meta">${p.category} · Taille ${p.size}</p>
-        <p class="product-price">${p.price} DH</p>
+        <p class="product-price">${typeof formatPrice === 'function' ? formatPrice(p.price) : p.price + ' DH'}</p>
         <p class="product-reason">${reasonText}</p>
         <button class="btn-add-cart" onclick="addToCart(${p.id})">
           🛒 Ajouter au panier

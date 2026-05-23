@@ -22,13 +22,26 @@
         <span class="logo-ar">| الهَوتة</span>
       </a>
       <nav class="main-nav" aria-label="Navigation principale">
-        <a href="index.html">Accueil</a>
-        <a href="boutique.html">Boutique</a>
-        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
-        <a href="contact.html">Contact</a>
-        <a href="livraison.html">Livraison</a>
-        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener" class="nav-ig">Instagram</a>
+        <a href="index.html" data-i18n="nav.home">Accueil</a>
+        <a href="boutique.html" data-i18n="nav.shop">Boutique</a>
+        <a href="trouve-ta-piece.html" data-i18n="nav.find">Trouve ta pièce</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+        <a href="livraison.html" data-i18n="nav.shipping">Livraison</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener" class="nav-ig" data-i18n="nav.instagram">Instagram</a>
       </nav>
+      <!-- Sélecteur de pays -->
+      <div class="country-selector">
+        <button class="country-selector-btn" onclick="document.getElementById('country-dropdown').classList.toggle('open')">
+          <span class="country-selector-current">🇲🇦 MAD</span> ▾
+        </button>
+        <div id="country-dropdown" class="country-dropdown">
+          <button class="country-option" data-country="MA" onclick="setCountry('MA'); document.getElementById('country-dropdown').classList.remove('open')">🇲🇦 Maroc (MAD)</button>
+          <button class="country-option" data-country="FR" onclick="setCountry('FR'); document.getElementById('country-dropdown').classList.remove('open')">🇫🇷 France (EUR)</button>
+          <button class="country-option" data-country="BE" onclick="setCountry('BE'); document.getElementById('country-dropdown').classList.remove('open')">🇧🇪 Belgique (EUR)</button>
+          <button class="country-option" data-country="CA" onclick="setCountry('CA'); document.getElementById('country-dropdown').classList.remove('open')">🇨🇦 Canada (CAD)</button>
+          <button class="country-option" data-country="XX" onclick="setCountry('XX'); document.getElementById('country-dropdown').classList.remove('open')">🌍 International (EUR)</button>
+        </div>
+      </div>
       <a href="panier.html" class="cart-btn" aria-label="Voir le panier">
         🛒 <span class="cart-count">0</span>
       </a>
@@ -38,8 +51,8 @@
 
   <section class="page-header">
     <div class="container">
-      <h1>Mon panier</h1>
-      <p>Vérifie tes pièces avant d'envoyer ta commande sur Instagram.</p>
+      <h1 data-i18n="cart.title">Mon panier</h1>
+      <p data-i18n="cart.subtitle">Vérifie tes pièces avant d'envoyer ta commande sur Instagram.</p>
     </div>
   </section>
 
@@ -47,23 +60,23 @@
     <div class="container">
       <div id="empty-cart" class="empty-cart" hidden>
         <div class="empty-cart-icon">🛒</div>
-        <h2>Ton panier est vide</h2>
-        <p class="muted">Va faire un tour à la boutique pour ajouter des pièces.</p>
-        <a href="boutique.html" class="btn btn-primary btn-large">Voir la boutique</a>
+        <h2 data-i18n="cart.empty.title">Ton panier est vide</h2>
+        <p class="muted" data-i18n="cart.empty.subtitle">Va faire un tour à la boutique pour ajouter des pièces.</p>
+        <a href="boutique.html" class="btn btn-primary btn-large" data-i18n="cart.empty.cta">Voir la boutique</a>
       </div>
 
       <div id="filled-cart" class="cart-layout" hidden>
         <div class="cart-items" id="cart-items"></div>
         <aside class="cart-summary">
-          <h2>Récap</h2>
+          <h2 data-i18n="cart.summary">Récap</h2>
 
           <div class="summary-row">
-            <span>Articles</span>
+            <span data-i18n="cart.articles">Articles</span>
             <span id="summary-count">0</span>
           </div>
 
           <div class="summary-row summary-subtotal">
-            <span>Sous-total</span>
+            <span data-i18n="cart.subtotal">Sous-total</span>
             <span id="summary-subtotal">0 DH</span>
           </div>
 
@@ -75,18 +88,14 @@
             </div>
           </div>
 
-          <p class="small muted" style="margin: 8px 0 4px; text-align:center;">
-            👇 Choisis ta zone pour finaliser
-          </p>
+          <p class="small muted" style="margin: 8px 0 4px; text-align:center;" data-i18n="cart.choose_zone">👇 Choisis ta zone pour finaliser</p>
 
           <!-- 2 boutons commander -->
           <button class="btn-order-zone btn-order-casa" onclick="orderInstagram('casa')">
             <span class="order-zone-icon">📍</span>
             <span class="order-zone-content">
-              <strong>Commander à Casablanca</strong>
-              <span class="order-zone-detail" id="detail-casa">
-                Livraison +20 DH · Cash à la livraison
-              </span>
+              <strong data-i18n="cart.btn.casa">Commander à Casablanca</strong>
+              <span class="order-zone-detail" id="detail-casa">Livraison +20 DH · Cash à la livraison</span>
               <span class="order-zone-total" id="total-casa">Total : 0 DH</span>
             </span>
           </button>
@@ -94,21 +103,15 @@
           <button class="btn-order-zone btn-order-hors" onclick="orderInstagram('hors_casa')">
             <span class="order-zone-icon">🚛</span>
             <span class="order-zone-content">
-              <strong>Commander hors Casablanca</strong>
-              <span class="order-zone-detail" id="detail-hors">
-                Livraison +50 DH · Paiement à l'avance
-              </span>
+              <strong data-i18n="cart.btn.hors_casa">Commander hors Casablanca</strong>
+              <span class="order-zone-detail" id="detail-hors">Livraison +50 DH · Paiement à l'avance</span>
               <span class="order-zone-total" id="total-hors">Total : 0 DH</span>
             </span>
           </button>
 
-          <p class="small muted" style="text-align:center; margin: 14px 0 4px;">
-            Le message sera copié et Instagram s'ouvrira ✨
-          </p>
+          <p class="small muted" style="text-align:center; margin: 14px 0 4px;" data-i18n="cart.dm_intro">Le message sera copié et Instagram s'ouvrira ✨</p>
 
-          <button class="btn btn-outline btn-block" onclick="if(confirm('Vider le panier ?')) clearCart()" style="margin-top: 10px;">
-            Vider le panier
-          </button>
+          <button class="btn btn-outline btn-block" onclick="if(confirm(t('cart.confirm_empty'))) clearCart()" style="margin-top: 10px;" data-i18n="cart.btn.empty_cart">Vider le panier</button>
 
           <details class="message-preview">
             <summary>Aperçu du message DM (Casa)</summary>
@@ -124,22 +127,22 @@
       <a href="livraison.html" class="trust-item">
         <div class="trust-icon">🎁</div>
         <div class="trust-text">
-          <strong>Livraison offerte dès 500 DH</strong>
-          <span>Expédition 48h partout au Maroc</span>
+          <strong data-i18n="trust.shipping.title">Livraison offerte dès 500 DH</strong>
+          <span data-i18n="trust.shipping.subtitle">Expédition 48h partout au Maroc</span>
         </div>
       </a>
       <a href="livraison.html" class="trust-item">
         <div class="trust-icon">💳</div>
         <div class="trust-text">
-          <strong>Hors Casa : paiement à l'avance</strong>
-          <span>Cash à la livraison sur Casablanca</span>
+          <strong data-i18n="trust.payment.title">Hors Casa : paiement à l'avance</strong>
+          <span data-i18n="trust.payment.subtitle">Cash à la livraison sur Casablanca</span>
         </div>
       </a>
       <a href="contact.html" class="trust-item">
         <div class="trust-icon">🤝</div>
         <div class="trust-text">
-          <strong>Service client 7j/7</strong>
-          <span>On répond vite en DM</span>
+          <strong data-i18n="trust.support.title">Service client 7j/7</strong>
+          <span data-i18n="trust.support.subtitle">On répond vite en DM</span>
         </div>
       </a>
     </div>
@@ -169,7 +172,7 @@
       </p>
 
       <div class="lhw-reviews-header">
-        <h2 class="lhw-reviews-title">Laissons nos clients parler pour nous</h2>
+        <h2 class="lhw-reviews-title" data-i18n="reviews.section_title">Laissons nos clients parler pour nous</h2>
         <div class="lhw-reviews-bigrating">
           <div class="lhw-reviews-bigstars">★★★★★</div>
           <p class="lhw-reviews-summary">
@@ -186,10 +189,8 @@
       </div>
 
       <div class="lhw-reviews-cta">
-        <p class="muted">Tu as déjà commandé chez nous ?</p>
-        <button type="button" class="btn btn-primary" onclick="openReviewModal()">
-          ⭐ Laisser un avis
-        </button>
+        <p class="muted" data-i18n="reviews.cta.question">Tu as déjà commandé chez nous ?</p>
+        <button type="button" class="btn btn-primary" onclick="openReviewModal()" data-i18n="reviews.cta.button">⭐ Laisser un avis</button>
       </div>
 
     </div>
@@ -202,19 +203,39 @@
         <span class="logo-text">LHAWTA</span>
         <span class="logo-ar">| الهَوتة</span>
       </p>
-        <p class="muted">Casablanca · Neuf & seconde main</p>
+        <p class="muted" data-i18n="footer.tagline">Casablanca · Neuf & seconde main</p>
       </div>
       <div class="footer-links">
-        <a href="boutique.html">Boutique</a>
-        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
-        <a href="contact.html">Contact</a>
+        <a href="boutique.html" data-i18n="nav.shop">Boutique</a>
+        <a href="trouve-ta-piece.html" data-i18n="nav.find">Trouve ta pièce</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
         <a href="livraison.html">Livraison & Paiement</a>
         <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener">Instagram</a>
       </div>
+      <div class="footer-locale">
+        <div class="footer-locale-block">
+          <span class="muted small">Langue :</span>
+          <button class="locale-option" data-locale="fr-ma" onclick="setLocale('fr-ma')">🇲🇦 FR Maroc</button>
+          <button class="locale-option" data-locale="fr" onclick="setLocale('fr')">🇫🇷 Français</button>
+          <button class="locale-option" data-locale="en" onclick="setLocale('en')">🇬🇧 English</button>
+        </div>
+        <div class="footer-locale-block">
+          <span class="muted small">Pays :</span>
+          <select onchange="setCountry(this.value)" class="footer-country-select">
+            <option value="MA">🇲🇦 Maroc (MAD)</option>
+            <option value="FR">🇫🇷 France (EUR)</option>
+            <option value="BE">🇧🇪 Belgique (EUR)</option>
+            <option value="CA">🇨🇦 Canada (CAD)</option>
+            <option value="XX">🌍 International (EUR)</option>
+          </select>
+        </div>
+      </div>
+
       <p class="muted small">© 2026 Lhawta. Tous droits réservés.</p>
     </div>
   </footer>
 
+  <script src="js/i18n.js?v=20260527"></script>
   <script src="js/products.js?v=20260527"></script>
   <script src="js/cart.js?v=20260527"></script>
   <script>
@@ -239,7 +260,7 @@
           <div class="cart-item-info">
             <h3>${item.name}</h3>
             <p class="muted small">${item.reference} · Taille ${item.size}</p>
-            <p class="cart-item-price">${item.price} DH</p>
+            <p class="cart-item-price">${typeof formatPrice === 'function' ? formatPrice(item.price) : item.price + ' DH'}</p>
           </div>
           <button class="cart-remove" onclick="removeFromCart(${item.id})" aria-label="Retirer">✕</button>
         </article>
@@ -247,7 +268,7 @@
 
       const subtotal = getCartSubtotal();
       document.getElementById('summary-count').textContent = cart.length;
-      document.getElementById('summary-subtotal').textContent = subtotal + ' DH';
+      document.getElementById('summary-subtotal').textContent = (typeof formatPrice === 'function') ? formatPrice(subtotal) : subtotal + ' DH';
 
       const remaining = getRemainingForFreeShipping();
       const fillPct = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
@@ -255,13 +276,17 @@
       const fspFill = document.getElementById('fsp-bar-fill');
       const fspBox  = document.getElementById('free-shipping-progress');
 
+      const fmt = (n) => (typeof formatPrice === 'function') ? formatPrice(n) : n + ' DH';
+      const tr  = (k, vars) => (typeof t === 'function') ? t(k, vars) : null;
+
       if (isFreeShipping()) {
         fspBox.classList.add('fsp-achieved');
-        fspText.innerHTML = '🎁 <strong>Livraison GRATUITE débloquée !</strong>';
+        fspText.innerHTML = tr('cart.free_shipping_achieved') || '🎁 <strong>Livraison GRATUITE débloquée !</strong>';
         fspFill.style.width = '100%';
       } else {
         fspBox.classList.remove('fsp-achieved');
-        fspText.innerHTML = `Plus que <strong>${remaining} DH</strong> pour la livraison gratuite 🎁`;
+        const progressTxt = tr('cart.free_shipping_progress', { amount: fmt(remaining) }) || `Plus que <strong>${fmt(remaining)}</strong> pour la livraison gratuite 🎁`;
+        fspText.innerHTML = progressTxt;
         fspFill.style.width = fillPct + '%';
       }
 
@@ -270,19 +295,20 @@
       const casaTotal = subtotal + casaShip;
       const horsTotal = subtotal + horsShip;
 
-      document.getElementById('total-casa').textContent = `Total : ${casaTotal} DH`;
-      document.getElementById('total-hors').textContent = `Total : ${horsTotal} DH`;
+      const totalLabel = tr('cart.total') || 'Total';
+      document.getElementById('total-casa').textContent = `${totalLabel} : ${fmt(casaTotal)}`;
+      document.getElementById('total-hors').textContent = `${totalLabel} : ${fmt(horsTotal)}`;
 
       if (isFreeShipping()) {
-        document.getElementById('detail-casa').innerHTML =
-          '🎁 Livraison GRATUITE · Cash à la livraison';
-        document.getElementById('detail-hors').innerHTML =
-          '🎁 Livraison GRATUITE · Paiement à l\'avance';
+        document.getElementById('detail-casa').textContent =
+          tr('cart.free.detail_casa') || '🎁 Livraison GRATUITE · Cash à la livraison';
+        document.getElementById('detail-hors').textContent =
+          tr('cart.free.detail_hors') || "🎁 Livraison GRATUITE · Paiement à l'avance";
       } else {
         document.getElementById('detail-casa').textContent =
-          'Livraison +20 DH · Cash à la livraison';
+          tr('cart.casa.detail') || 'Livraison +20 DH · Cash à la livraison';
         document.getElementById('detail-hors').textContent =
-          'Livraison +50 DH · Paiement à l\'avance';
+          tr('cart.hors.detail') || "Livraison +50 DH · Paiement à l'avance";
       }
 
       document.getElementById('message-preview-text').textContent =
@@ -296,20 +322,20 @@
     <div class="review-modal-card" role="dialog" aria-labelledby="review-modal-title">
       <button class="review-modal-close" onclick="closeReviewModal()" aria-label="Fermer">✕</button>
 
-      <h2 id="review-modal-title">⭐ Laisse ton avis sur Lhawta</h2>
-      <p class="muted small">Ton avis sera publié instantanément sur le site ✨</p>
+      <h2 id="review-modal-title" data-i18n="reviews.modal.title">⭐ Laisse ton avis sur Lhawta</h2>
+      <p class="muted small" data-i18n="reviews.modal.subtitle">Ton avis sera publié instantanément sur le site ✨</p>
 
       <form id="review-form" class="review-form">
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
         <div class="form-row">
-          <label for="rv-name">Ton prénom *</label>
+          <label for="rv-name" data-i18n="reviews.modal.name">Ton prénom *</label>
           <input type="text" id="rv-name" name="name" required placeholder="Ex: Sara" maxlength="40" />
         </div>
 
         <div class="form-row form-row-2">
           <div>
-            <label for="rv-city">Ta ville *</label>
+            <label for="rv-city" data-i18n="reviews.modal.city">Ta ville *</label>
             <input type="text" id="rv-city" name="city" required placeholder="Casablanca" maxlength="30" />
           </div>
           <div>
@@ -319,7 +345,7 @@
         </div>
 
         <div class="form-row">
-          <label>Ta note *</label>
+          <label data-i18n="reviews.modal.rating">Ta note *</label>
           <div class="rating-input" id="rating-input">
             <input type="radio" name="rating" value="5" id="star5" required />
             <label for="star5" title="5 étoiles">★</label>
@@ -335,12 +361,12 @@
         </div>
 
         <div class="form-row">
-          <label for="rv-title">Titre de ton avis *</label>
+          <label for="rv-title" data-i18n="reviews.modal.review_title">Titre de ton avis *</label>
           <input type="text" id="rv-title" name="title" required placeholder="Ex: Service au top" maxlength="80" />
         </div>
 
         <div class="form-row">
-          <label for="rv-text">Ton message *</label>
+          <label for="rv-text" data-i18n="reviews.modal.message">Ton message *</label>
           <textarea id="rv-text" name="text" rows="4" required placeholder="Raconte ton expérience avec Lhawta..." maxlength="400"></textarea>
           <span class="char-count" id="char-count">0 / 400</span>
         </div>
@@ -351,16 +377,16 @@
         </div>
 
         <div class="review-form-actions">
-          <button type="button" class="btn btn-outline" onclick="closeReviewModal()">Annuler</button>
-          <button type="submit" class="btn btn-primary" id="rv-submit">📤 Envoyer mon avis</button>
+          <button type="button" class="btn btn-outline" onclick="closeReviewModal()" data-i18n="reviews.modal.cancel">Annuler</button>
+          <button type="submit" class="btn btn-primary" id="rv-submit" data-i18n="reviews.modal.submit">📤 Envoyer mon avis</button>
         </div>
       </form>
 
       <div id="review-success" class="review-success" hidden>
         <div class="success-icon">🎉</div>
-        <h3>Merci pour ton avis !</h3>
-        <p>Ton avis est publié sur le site. Tu peux le voir dans la section "Ils nous font confiance".</p>
-        <button class="btn btn-primary btn-block" onclick="closeReviewModal()">Fermer</button>
+        <h3 data-i18n="reviews.success.title">Merci pour ton avis !</h3>
+        <p data-i18n="reviews.success.message">Ton avis est publié sur le site. Tu peux le voir dans la section "Ils nous font confiance".</p>
+        <button class="btn btn-primary btn-block" onclick="closeReviewModal()" data-i18n="reviews.success.close">Fermer</button>
       </div>
     </div>
   </div>
