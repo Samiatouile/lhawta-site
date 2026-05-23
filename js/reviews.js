@@ -1,95 +1,128 @@
 /* =========================================================
-   Lhawta — Avis clients
-   Pour ajouter un nouvel avis, ajoute simplement un objet
-   dans le tableau REVIEWS ci-dessous.
+   Lhawta — Avis clients (hybride : Worker + seeds locaux)
    ========================================================= */
 
-const REVIEWS = [
+const REVIEWS_API_URL = 'https://lhawta-reviews.samia-touile.workers.dev/reviews';
+
+const SEED_REVIEWS = [
   {
+    title: "Service au top, livraison rapide",
+    text: "J'ai commandé une chemise vintage, livrée le jour même à Casa. Qualité au rendez-vous.",
     name: "Yassine B.",
-    handle: "@yassineb",
     city: "Casablanca",
     rating: 5,
-    text: "Wallah service au top. J'ai commandé une chemise vintage, livrée le jour même. La qualité dépasse les attentes.",
     item: "Chemise vintage rayée"
   },
   {
+    title: "Rassurée et bien servie",
+    text: "J'étais hésitante de payer à l'avance depuis Rabat, mais le service client est top. Reçu en 48h.",
     name: "Salma E.",
-    handle: "@salmaa.e",
     city: "Rabat",
     rating: 5,
-    text: "J'étais hésitante de payer à l'avance, mais le service client est rassurant et rapide. Reçu en 48h, exactement comme sur les photos !",
     item: "Veste denim"
   },
   {
+    title: "100% authentique",
+    text: "Drari Lhawta connaissent leur truc. Les pièces sont propres, pas de fake. Je recommande à 100%.",
     name: "Ayoub M.",
-    handle: "@ayoub.mr",
     city: "Casablanca",
     rating: 5,
-    text: "Drari Lhawta connaissent leur truc. Les pièces sont propres, pas comme d'autres pages qui vendent du fake. Je recommande à 100%.",
     item: "Blouson noir oversize"
-  },
-  {
-    name: "Imane K.",
-    handle: "@imanek_",
-    city: "Marrakech",
-    rating: 5,
-    text: "Le quiz 'Trouve ta pièce' est trop cool, ça m'a aidée à choisir un pull qui me va parfaitement. Livraison nickel à Marrakech.",
-    item: "Pull vintage vert"
-  },
-  {
-    name: "Mehdi A.",
-    handle: "@mehdi_a",
-    city: "Casablanca",
-    rating: 5,
-    text: "Haja zwina, j'ai eu une question sur la taille et ils m'ont répondu en 5 min sur Instagram. Service client 10/10.",
-    item: "T-shirt baseball"
-  },
-  {
-    name: "Nada R.",
-    handle: "@nadar.style",
-    city: "Tanger",
-    rating: 5,
-    text: "Première commande chez Lhawta et clairement pas la dernière. Pièces uniques, prix corrects, et l'emballage est soigné.",
-    item: "Chemise premium"
   }
 ];
 
-function renderReviewCard(review) {
-  const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
-  const initials = review.name.split(' ').map(n => n[0]).join('').toUpperCase();
+let LIVE_REVIEWS = [];
 
+function getInitials(name) {
+  return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function renderReviewCard(review) {
+  const stars = '★'.repeat(review.rating);
   return `
-    <article class="review-card">
-      <div class="review-header">
-        <div class="review-avatar">${initials}</div>
-        <div class="review-meta">
-          <strong class="review-name">${review.name}</strong>
-          <span class="review-handle">${review.handle} · ${review.city}</span>
+    <article class="lhw-review-card">
+      <div class="lhw-review-stars">${stars}</div>
+      <h3 class="lhw-review-title">${escapeHtml(review.title)}</h3>
+      <p class="lhw-review-text">${escapeHtml(review.text)}</p>
+      <div class="lhw-review-footer">
+        <div class="lhw-review-avatar">${escapeHtml(getInitials(review.name))}</div>
+        <div class="lhw-review-author">
+          <strong>${escapeHtml(review.name)}</strong>
+          <span>${escapeHtml(review.city)}${review.item ? ' · ' + escapeHtml(review.item) : ''}</span>
         </div>
-        <div class="review-rating" aria-label="${review.rating} étoiles sur 5">${stars}</div>
       </div>
-      <p class="review-text">"${review.text}"</p>
-      <p class="review-item">Pièce achetée : <strong>${review.item}</strong></p>
     </article>
   `;
 }
 
-function getAverageRating() {
-  const total = REVIEWS.reduce((sum, r) => sum + r.rating, 0);
-  return (total / REVIEWS.length).toFixed(1);
+function getAllReviews() {
+  return [...LIVE_REVIEWS, ...SEED_REVIEWS];
 }
 
-function renderAllReviews() {
-  document.querySelectorAll('.reviews-grid').forEach(grid => {
-    grid.innerHTML = REVIEWS.map(renderReviewCard).join('');
+function getAverageRating() {
+  const all = getAllReviews();
+  if (all.length === 0) return '5.0';
+  const total = all.reduce((sum, r) => sum + r.rating, 0);
+  return (total / all.length).toFixed(1);
+}
+
+function renderReviewsCarousel() {
+  const all = getAllReviews();
+  document.querySelectorAll('.lhw-reviews-track').forEach(track => {
+    track.innerHTML = all.map(renderReviewCard).join('');
   });
-  document.querySelectorAll('.reviews-avg').forEach(el => {
+  document.querySelectorAll('.lhw-reviews-avg').forEach(el => {
     el.textContent = getAverageRating();
   });
-  document.querySelectorAll('.reviews-count').forEach(el => {
-    el.textContent = REVIEWS.length;
+  document.querySelectorAll('.lhw-reviews-count').forEach(el => {
+    el.textContent = all.length;
   });
 }
 
-document.addEventListener('DOMContentLoaded', renderAllReviews);
+async function fetchLiveReviews() {
+  try {
+    const res = await fetch(REVIEWS_API_URL, {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!res.ok) throw new Error('Worker error');
+    const data = await res.json();
+    if (Array.isArray(data.reviews)) {
+      LIVE_REVIEWS = data.reviews.sort((a, b) =>
+        new Date(b.date || 0) - new Date(a.date || 0)
+      );
+      renderReviewsCarousel();
+    }
+  } catch (err) {
+    console.warn('[Lhawta] Live reviews unavailable, using seed only.', err);
+  }
+}
+
+function scrollReviews(direction) {
+  const track = document.querySelector('.lhw-reviews-track');
+  if (!track) return;
+  const card = track.querySelector('.lhw-review-card');
+  if (!card) return;
+  const scrollAmount = card.offsetWidth + 20;
+  track.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
+}
+
+function addReviewLocally(review) {
+  LIVE_REVIEWS.unshift(review);
+  renderReviewsCarousel();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderReviewsCarousel();
+  fetchLiveReviews();
+});

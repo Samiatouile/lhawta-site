@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0" />
   <title>Contact — Lhawta | الهَوتة</title>
   <meta name="description" content="Contacte Lhawta sur Instagram ou WhatsApp pour commander une pièce. Casablanca." />
-  <link rel="stylesheet" href="css/style.css?v=20260526" />
+  <link rel="stylesheet" href="css/style.css?v=20260527" />
 </head>
 <body>
 
@@ -136,6 +136,56 @@
   </section>
 
   <!-- ===== FOOTER ===== -->
+  <!-- ===== AVIS CLIENTS ===== -->
+  <section class="lhw-reviews-section">
+    <div class="container">
+
+      <div class="lhw-reviews-badges">
+        <div class="lhw-badge">
+          <div class="lhw-badge-icon">🏆</div>
+          <div class="lhw-badge-label">VERIFIED<br>REVIEWS</div>
+        </div>
+        <div class="lhw-badge lhw-badge-center">
+          <div class="lhw-badge-icon">🥈</div>
+          <div class="lhw-badge-label">SILVER<br>AUTHENTICITY</div>
+        </div>
+        <div class="lhw-badge">
+          <div class="lhw-badge-icon">⭐</div>
+          <div class="lhw-badge-label">TOP<br>RATED 2026</div>
+        </div>
+      </div>
+
+      <p class="lhw-reviews-verified">
+        Vérifié par <span class="lhw-verified-logo">✓ Lhawta Reviews</span>
+      </p>
+
+      <div class="lhw-reviews-header">
+        <h2 class="lhw-reviews-title">Laissons nos clients parler pour nous</h2>
+        <div class="lhw-reviews-bigrating">
+          <div class="lhw-reviews-bigstars">★★★★★</div>
+          <p class="lhw-reviews-summary">
+            <strong class="lhw-reviews-avg">5.0</strong>/5 sur <strong class="lhw-reviews-count">3</strong> avis
+            <span class="lhw-verified-tick">✓</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="lhw-reviews-carousel">
+        <button class="lhw-reviews-nav lhw-reviews-prev" onclick="scrollReviews(-1)" aria-label="Précédent">‹</button>
+        <div class="lhw-reviews-track"></div>
+        <button class="lhw-reviews-nav lhw-reviews-next" onclick="scrollReviews(1)" aria-label="Suivant">›</button>
+      </div>
+
+      <div class="lhw-reviews-cta">
+        <p class="muted">Tu as déjà commandé chez nous ?</p>
+        <button type="button" class="btn btn-primary" onclick="openReviewModal()">
+          ⭐ Laisser un avis
+        </button>
+      </div>
+
+    </div>
+  </section>
+
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
@@ -153,7 +203,7 @@
     </div>
   </footer>
 
-  <script src="js/cart.js?v=20260526"></script>
+  <script src="js/cart.js?v=20260527"></script>
   <script>
     // Construit un message prêt à coller dans le DM Instagram
     function prepareMessage() {
@@ -174,5 +224,83 @@ Merci !`;
       document.getElementById('prepared-message').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   </script>
+  <!-- ===== MODALE : Laisser un avis ===== -->
+  <div id="review-modal" class="review-modal" hidden>
+    <div class="review-modal-overlay" onclick="closeReviewModal()"></div>
+    <div class="review-modal-card" role="dialog" aria-labelledby="review-modal-title">
+      <button class="review-modal-close" onclick="closeReviewModal()" aria-label="Fermer">✕</button>
+
+      <h2 id="review-modal-title">⭐ Laisse ton avis sur Lhawta</h2>
+      <p class="muted small">Ton avis sera publié instantanément sur le site ✨</p>
+
+      <form id="review-form" class="review-form">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div class="form-row">
+          <label for="rv-name">Ton prénom *</label>
+          <input type="text" id="rv-name" name="name" required placeholder="Ex: Sara" maxlength="40" />
+        </div>
+
+        <div class="form-row form-row-2">
+          <div>
+            <label for="rv-city">Ta ville *</label>
+            <input type="text" id="rv-city" name="city" required placeholder="Casablanca" maxlength="30" />
+          </div>
+          <div>
+            <label for="rv-handle">Ton Instagram <span class="muted small">(optionnel)</span></label>
+            <input type="text" id="rv-handle" name="handle" placeholder="@ton_pseudo" maxlength="30" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Ta note *</label>
+          <div class="rating-input" id="rating-input">
+            <input type="radio" name="rating" value="5" id="star5" required />
+            <label for="star5" title="5 étoiles">★</label>
+            <input type="radio" name="rating" value="4" id="star4" />
+            <label for="star4" title="4 étoiles">★</label>
+            <input type="radio" name="rating" value="3" id="star3" />
+            <label for="star3" title="3 étoiles">★</label>
+            <input type="radio" name="rating" value="2" id="star2" />
+            <label for="star2" title="2 étoiles">★</label>
+            <input type="radio" name="rating" value="1" id="star1" />
+            <label for="star1" title="1 étoile">★</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="rv-title">Titre de ton avis *</label>
+          <input type="text" id="rv-title" name="title" required placeholder="Ex: Service au top" maxlength="80" />
+        </div>
+
+        <div class="form-row">
+          <label for="rv-text">Ton message *</label>
+          <textarea id="rv-text" name="text" rows="4" required placeholder="Raconte ton expérience avec Lhawta..." maxlength="400"></textarea>
+          <span class="char-count" id="char-count">0 / 400</span>
+        </div>
+
+        <div class="form-row">
+          <label for="rv-item">Pièce achetée <span class="muted small">(optionnel)</span></label>
+          <input type="text" id="rv-item" name="item" placeholder="Ex: Veste denim" maxlength="60" />
+        </div>
+
+        <div class="review-form-actions">
+          <button type="button" class="btn btn-outline" onclick="closeReviewModal()">Annuler</button>
+          <button type="submit" class="btn btn-primary" id="rv-submit">📤 Envoyer mon avis</button>
+        </div>
+      </form>
+
+      <div id="review-success" class="review-success" hidden>
+        <div class="success-icon">🎉</div>
+        <h3>Merci pour ton avis !</h3>
+        <p>Ton avis est publié sur le site. Tu peux le voir dans la section "Ils nous font confiance".</p>
+        <button class="btn btn-primary btn-block" onclick="closeReviewModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/reviews.js?v=20260527"></script>
+  <script src="js/review-form.js?v=20260527"></script>
+
 </body>
 </html>
