@@ -2162,3 +2162,62 @@ body.theme-dark .blog-card-link { color: var(--color-accent); }
   .logo-text { font-size: 1.15rem; }
   .logo-ar { display: none; }
 }
+
+/* =========================================================
+   FIX MOBILE — Burger menu dropdown sur fond noir
+   ========================================================= */
+
+@media (max-width: 720px) {
+  /* Le dropdown mobile prend le même fond noir que le header */
+  .site-header .main-nav {
+    background: #000000 !important;
+    border-bottom: 1px solid var(--color-border-dark);
+    padding: 16px 24px;
+    gap: 4px;
+  }
+
+  /* Tous les liens en blanc sur fond noir */
+  .site-header .main-nav a {
+    color: var(--color-text-light) !important;
+    padding: 12px 0;
+    font-size: 1rem;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Hover / focus en jaune néon */
+  .site-header .main-nav a:hover,
+  .site-header .main-nav a:focus {
+    color: var(--color-accent) !important;
+    text-shadow: 0 0 8px var(--color-accent-glow);
+  }
+
+  /* Lien actif (page courante) en jaune */
+  .site-header .main-nav a.active {
+    color: var(--color-accent) !important;
+  }
+  .site-header .main-nav a.active::after {
+    display: none; /* on cache la barre underline sur mobile, pas pertinent */
+  }
+
+  /* Le bouton Instagram garde son style jaune + texte noir */
+  .site-header .main-nav a.nav-ig {
+    background: var(--color-accent) !important;
+    color: #000000 !important;
+    text-align: center;
+    margin-top: 8px;
+    padding: 12px 18px;
+    border-bottom: none;
+  }
+  .site-header .main-nav a.nav-ig:hover {
+    background: var(--color-accent-dark) !important;
+    color: #000000 !important;
+    text-shadow: none;
+  }
+
+  /* Sur les pages light, override aussi pour s'assurer que le menu reste noir */
+  body.theme-light .site-header .main-nav,
+  body.theme-light .site-header .main-nav.open {
+    background: #000000 !important;
+  }
+}
