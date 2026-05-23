@@ -132,7 +132,7 @@ const TRANSLATIONS = {
     'trust.shipping.title': 'Livraison offerte dès 500 DH',
     'trust.shipping.subtitle': 'Expédition 48h partout au Maroc',
     'trust.payment.title': "Hors Casa : paiement à l'avance",
-    'trust.payment.subtitle': '',
+    'trust.payment.subtitle': 'Plusieurs modes de paiement',
     'trust.support.title': 'Service client 7j/7',
     'trust.support.subtitle': 'On répond vite en DM',
 
