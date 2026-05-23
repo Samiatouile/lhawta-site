@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boutique — Lhawta | الهَوتة</title>
+  <meta name="description" content="Toute la boutique Lhawta : chemises, t-shirts, blousons, pulls, pantalons. Neuf & seconde main à Casablanca." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        Lhawta <span class="logo-ar">| الهَوتة</span>
+      </a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="boutique.html" class="active">Boutique</a>
+        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener" class="nav-ig">Instagram</a>
+      </nav>
+      <button class="burger" aria-label="Menu" onclick="document.querySelector('.main-nav').classList.toggle('open')">☰</button>
+    </div>
+  </header>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Boutique</h1>
+      <p>Toute la sélection Lhawta. Filtre selon ton style et ton budget.</p>
+    </div>
+  </section>
+
+  <!-- ===== FILTRES + GRILLE ===== -->
+  <section class="section">
+    <div class="container shop-layout">
+
+      <!-- Filtres -->
+      <aside class="filters" aria-label="Filtres">
+        <h2 class="filters-title">Filtres</h2>
+
+        <div class="filter-group">
+          <label for="filter-category">Catégorie</label>
+          <select id="filter-category">
+            <option value="all">Toutes</option>
+            <option value="chemise">Chemise</option>
+            <option value="t-shirt">T-shirt</option>
+            <option value="blouson">Blouson</option>
+            <option value="pull">Pull</option>
+            <option value="pantalon">Pantalon</option>
+            <option value="veste">Veste</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-size">Taille</label>
+          <select id="filter-size">
+            <option value="all">Toutes</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-budget">Budget max : <span id="budget-value">500</span> DH</label>
+          <input type="range" id="filter-budget" min="50" max="500" step="10" value="500" />
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-status">Disponibilité</label>
+          <select id="filter-status">
+            <option value="all">Toutes</option>
+            <option value="Disponible">Disponible</option>
+            <option value="Vendu">Vendu</option>
+          </select>
+        </div>
+
+        <button id="reset-filters" class="btn btn-outline btn-block">Réinitialiser</button>
+      </aside>
+
+      <!-- Grille produits -->
+      <div class="shop-main">
+        <p id="results-count" class="results-count"></p>
+        <div id="products-grid" class="product-grid"></div>
+        <p id="no-results" class="no-results" hidden>
+          Aucun produit ne correspond à tes filtres. Essaie d'élargir ta recherche.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="logo">Lhawta <span class="logo-ar">| الهَوتة</span></p>
+        <p class="muted">Casablanca · Neuf & seconde main</p>
+      </div>
+      <div class="footer-links">
+        <a href="boutique.html">Boutique</a>
+        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="muted small">© 2026 Lhawta. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/boutique.js"></script>
+</body>
+</html>

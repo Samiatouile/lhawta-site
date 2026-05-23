@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Lhawta | الهَوتة</title>
+  <meta name="description" content="Contacte Lhawta sur Instagram ou WhatsApp pour commander une pièce. Casablanca." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        Lhawta <span class="logo-ar">| الهَوتة</span>
+      </a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="boutique.html">Boutique</a>
+        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
+        <a href="contact.html" class="active">Contact</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener" class="nav-ig">Instagram</a>
+      </nav>
+      <button class="burger" aria-label="Menu" onclick="document.querySelector('.main-nav').classList.toggle('open')">☰</button>
+    </div>
+  </header>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Contact</h1>
+      <p>Pour commander, envoie-nous le nom ou la référence de la pièce en DM.</p>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT BLOCK ===== -->
+  <section class="section">
+    <div class="container contact-layout">
+
+      <!-- Channels -->
+      <div class="contact-channels">
+
+        <a class="contact-card" href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener">
+          <div class="contact-icon">IG</div>
+          <div>
+            <h3>Instagram</h3>
+            <p class="muted">@lhawta.casablanca</p>
+            <p class="small">Le moyen le plus rapide pour réserver.</p>
+          </div>
+        </a>
+
+        <a class="contact-card" href="#" onclick="alert('Ajoute ton numéro WhatsApp ici.'); return false;">
+          <div class="contact-icon">WA</div>
+          <div>
+            <h3>WhatsApp</h3>
+            <p class="muted">+212 6 XX XX XX XX</p>
+            <p class="small">Bientôt disponible.</p>
+          </div>
+        </a>
+
+        <div class="contact-card static">
+          <div class="contact-icon">📍</div>
+          <div>
+            <h3>Casablanca</h3>
+            <p class="muted">Maroc</p>
+            <p class="small">Livraison sur tout le Maroc, retrait possible sur Casa.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Formulaire (visuel uniquement) -->
+      <div class="contact-form-wrapper">
+        <h2>Prépare ton message</h2>
+        <p class="muted small">Ce formulaire t'aide à formuler ton DM. Il s'ouvrira ensuite sur Instagram.</p>
+
+        <form id="prepare-form" class="contact-form" onsubmit="event.preventDefault(); prepareMessage();">
+          <div class="form-row">
+            <label for="cf-name">Ton nom</label>
+            <input type="text" id="cf-name" placeholder="Ex: Yassine" />
+          </div>
+          <div class="form-row">
+            <label for="cf-ig">Ton Instagram</label>
+            <input type="text" id="cf-ig" placeholder="@ton_pseudo" />
+          </div>
+          <div class="form-row">
+            <label for="cf-message">Ton message (référence du produit, taille, etc.)</label>
+            <textarea id="cf-message" rows="5" placeholder="Salam, je suis intéressé(e) par la pièce LHW-001..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Préparer mon message</button>
+        </form>
+
+        <div id="prepared-message" class="prepared-message" hidden>
+          <h3>Ton message est prêt 👇</h3>
+          <pre id="prepared-text"></pre>
+          <a id="open-ig" class="btn btn-dark btn-block" href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener">
+            Ouvrir Instagram pour envoyer
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="logo">Lhawta <span class="logo-ar">| الهَوتة</span></p>
+        <p class="muted">Casablanca · Neuf & seconde main</p>
+      </div>
+      <div class="footer-links">
+        <a href="boutique.html">Boutique</a>
+        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="muted small">© 2026 Lhawta. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Construit un message prêt à coller dans le DM Instagram
+    function prepareMessage() {
+      const name = document.getElementById('cf-name').value.trim() || '—';
+      const ig = document.getElementById('cf-ig').value.trim() || '—';
+      const msg = document.getElementById('cf-message').value.trim() || '(aucun message)';
+
+      const text =
+`Salam Lhawta 👋
+Je suis ${name} (Instagram: ${ig})
+
+${msg}
+
+Merci !`;
+
+      document.getElementById('prepared-text').textContent = text;
+      document.getElementById('prepared-message').hidden = false;
+      document.getElementById('prepared-message').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  </script>
+</body>
+</html>

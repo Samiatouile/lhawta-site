@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trouve ta pièce — Lhawta | الهَوتة</title>
+  <meta name="description" content="Réponds au quiz Lhawta et trouve la pièce qui te correspond. Sélection personnalisée à Casablanca." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        Lhawta <span class="logo-ar">| الهَوتة</span>
+      </a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="boutique.html">Boutique</a>
+        <a href="trouve-ta-piece.html" class="active">Trouve ta pièce</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener" class="nav-ig">Instagram</a>
+      </nav>
+      <button class="burger" aria-label="Menu" onclick="document.querySelector('.main-nav').classList.toggle('open')">☰</button>
+    </div>
+  </header>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Trouve ta pièce</h1>
+      <p>Réponds à 5 questions rapides. On te sort les meilleurs matchs de la boutique.</p>
+    </div>
+  </section>
+
+  <!-- ===== QUIZ ===== -->
+  <section class="section">
+    <div class="container quiz-container">
+
+      <form id="quiz-form" class="quiz-form">
+
+        <!-- Question 1 : occasion -->
+        <fieldset class="quiz-question">
+          <legend><span class="q-num">1</span> Pour quelle occasion tu cherches une pièce ?</legend>
+          <div class="quiz-options">
+            <label><input type="radio" name="occasion" value="quotidien" required /> <span>Quotidien</span></label>
+            <label><input type="radio" name="occasion" value="travail" /> <span>Travail / stage</span></label>
+            <label><input type="radio" name="occasion" value="école" /> <span>École / fac</span></label>
+            <label><input type="radio" name="occasion" value="sortie" /> <span>Sortie</span></label>
+            <label><input type="radio" name="occasion" value="événement" /> <span>Événement</span></label>
+          </div>
+        </fieldset>
+
+        <!-- Question 2 : style -->
+        <fieldset class="quiz-question">
+          <legend><span class="q-num">2</span> Quel style tu préfères ?</legend>
+          <div class="quiz-options">
+            <label><input type="radio" name="style" value="vintage" required /> <span>Vintage</span></label>
+            <label><input type="radio" name="style" value="streetwear" /> <span>Streetwear</span></label>
+            <label><input type="radio" name="style" value="minimal" /> <span>Minimal</span></label>
+            <label><input type="radio" name="style" value="chic casual" /> <span>Chic casual</span></label>
+            <label><input type="radio" name="style" value="oversize" /> <span>Oversize</span></label>
+          </div>
+        </fieldset>
+
+        <!-- Question 3 : catégorie -->
+        <fieldset class="quiz-question">
+          <legend><span class="q-num">3</span> Quelle catégorie ?</legend>
+          <div class="quiz-options">
+            <label><input type="radio" name="category" value="chemise" required /> <span>Chemise</span></label>
+            <label><input type="radio" name="category" value="t-shirt" /> <span>T-shirt</span></label>
+            <label><input type="radio" name="category" value="blouson" /> <span>Blouson</span></label>
+            <label><input type="radio" name="category" value="pull" /> <span>Pull</span></label>
+            <label><input type="radio" name="category" value="pantalon" /> <span>Pantalon</span></label>
+            <label><input type="radio" name="category" value="any" /> <span>Peu importe</span></label>
+          </div>
+        </fieldset>
+
+        <!-- Question 4 : taille -->
+        <fieldset class="quiz-question">
+          <legend><span class="q-num">4</span> Quelle taille ?</legend>
+          <div class="quiz-options">
+            <label><input type="radio" name="size" value="S" required /> <span>S</span></label>
+            <label><input type="radio" name="size" value="M" /> <span>M</span></label>
+            <label><input type="radio" name="size" value="L" /> <span>L</span></label>
+            <label><input type="radio" name="size" value="XL" /> <span>XL</span></label>
+            <label><input type="radio" name="size" value="any" /> <span>Je ne sais pas</span></label>
+          </div>
+        </fieldset>
+
+        <!-- Question 5 : budget -->
+        <fieldset class="quiz-question">
+          <legend><span class="q-num">5</span> Budget maximum ?</legend>
+          <div class="quiz-options">
+            <label><input type="radio" name="budget" value="100" required /> <span>100 DH</span></label>
+            <label><input type="radio" name="budget" value="200" /> <span>200 DH</span></label>
+            <label><input type="radio" name="budget" value="300" /> <span>300 DH</span></label>
+            <label><input type="radio" name="budget" value="any" /> <span>Peu importe</span></label>
+          </div>
+        </fieldset>
+
+        <div class="quiz-actions">
+          <button type="submit" class="btn btn-primary btn-large">Voir mes matchs</button>
+          <button type="reset" class="btn btn-outline">Effacer</button>
+        </div>
+
+      </form>
+
+      <!-- Résultats -->
+      <div id="quiz-results" class="quiz-results" hidden>
+        <h2 class="section-title">Tes meilleurs matchs</h2>
+        <p id="quiz-summary" class="section-subtitle"></p>
+        <div id="results-grid" class="product-grid"></div>
+        <p id="no-match" class="no-results" hidden>
+          Aucune pièce ne match parfaitement. Essaie avec un budget plus large ou une catégorie différente.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="logo">Lhawta <span class="logo-ar">| الهَوتة</span></p>
+        <p class="muted">Casablanca · Neuf & seconde main</p>
+      </div>
+      <div class="footer-links">
+        <a href="boutique.html">Boutique</a>
+        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="muted small">© 2026 Lhawta. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

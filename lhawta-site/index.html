@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lhawta | الهَوتة — Vêtements neufs & seconde main à Casablanca</title>
+  <meta name="description" content="Lhawta — Pièces neuves & seconde main, sélectionnées à Casablanca. Streetwear, vintage, chemises, blousons, t-shirts. Commande par DM Instagram." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        Lhawta <span class="logo-ar">| الهَوتة</span>
+      </a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html" class="active">Accueil</a>
+        <a href="boutique.html">Boutique</a>
+        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener" class="nav-ig">Instagram</a>
+      </nav>
+      <button class="burger" aria-label="Menu" onclick="document.querySelector('.main-nav').classList.toggle('open')">☰</button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1 class="hero-title">Koulchi y lbes l Original</h1>
+      <p class="hero-subtitle">Pièces neuves & seconde main, sélectionnées à Casablanca.</p>
+      <div class="hero-cta">
+        <a href="boutique.html" class="btn btn-primary">Voir la boutique</a>
+        <a href="trouve-ta-piece.html" class="btn btn-outline">Trouve ta pièce</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NOUVEAUTÉS ===== -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Nouveautés</h2>
+      <p class="section-subtitle">Les dernières pièces ajoutées à la sélection.</p>
+      <div id="new-products" class="product-grid"></div>
+      <div class="center-cta">
+        <a href="boutique.html" class="btn btn-dark">Voir toute la boutique</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== POURQUOI LHAWTA ===== -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Pourquoi Lhawta ?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">✓</div>
+          <h3>Pièces authentiques</h3>
+          <p>100% original. Pas de copies, pas de fakes.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">★</div>
+          <h3>Sélection clean</h3>
+          <p>Chaque pièce est triée et inspectée à la main.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">DH</div>
+          <h3>Prix accessibles</h3>
+          <p>Du bon style sans casser le portefeuille.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Commande rapide par DM</h3>
+          <p>Un message Instagram et c'est réservé.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA INSTAGRAM ===== -->
+  <section class="cta-ig">
+    <div class="container cta-ig-inner">
+      <h2>Tu veux réserver une pièce&nbsp;?</h2>
+      <p>DM-nous sur Instagram avec la référence du produit.</p>
+      <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener" class="btn btn-primary btn-large">
+        DM sur Instagram
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="logo">Lhawta <span class="logo-ar">| الهَوتة</span></p>
+        <p class="muted">Casablanca · Neuf & seconde main</p>
+      </div>
+      <div class="footer-links">
+        <a href="boutique.html">Boutique</a>
+        <a href="trouve-ta-piece.html">Trouve ta pièce</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="muted small">© 2026 Lhawta. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="js/products.js"></script>
+  <script>
+    // Affiche les 4 derniers produits disponibles en "Nouveautés"
+    (function renderNewProducts() {
+      const container = document.getElementById('new-products');
+      if (!container) return;
+      const available = PRODUCTS.filter(p => p.status === 'Disponible').slice(-4).reverse();
+      container.innerHTML = available.map(p => `
+        <article class="product-card">
+          <div class="product-image">
+            <img src="${p.image}" alt="${p.name}" loading="lazy" />
+            <span class="badge badge-ok">${p.status}</span>
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">${p.name}</h3>
+            <p class="product-meta">${p.category} · Taille ${p.size}</p>
+            <p class="product-price">${p.price} DH</p>
+            <a class="btn btn-dark btn-block"
+               href="https://www.instagram.com/lhawta.casablanca/"
+               target="_blank" rel="noopener">
+              Commander · ${p.reference}
+            </a>
+          </div>
+        </article>
+      `).join('');
+    })();
+  </script>
+</body>
+</html>
