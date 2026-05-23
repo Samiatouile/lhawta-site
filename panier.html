@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260533" />
+  <link rel="stylesheet" href="css/style.css?v=20260534" />
 </head>
 <body class="theme-dark">
   <header class="site-header">
@@ -68,7 +68,7 @@
 
       <div id="filled-cart" class="cart-layout" hidden>
         <div class="cart-items" id="cart-items"></div>
-        <aside class="cart-summary">
+        <aside class="cart-summary cart-summary-maroc">
           <h2 data-i18n="cart.summary">Récap</h2>
 
           <div class="summary-row">
@@ -117,6 +117,48 @@
           <details class="message-preview">
             <summary data-i18n="cart.preview_summary">Aperçu du message DM (Casa)</summary>
             <pre id="message-preview-text"></pre>
+          </details>
+        </aside>
+
+        <aside class="cart-summary cart-summary-international" hidden>
+          <h2 data-i18n="cart.summary">Récapitulatif</h2>
+
+          <div class="summary-row">
+            <span data-i18n="cart.articles">Articles</span>
+            <span id="intl-summary-count">0</span>
+          </div>
+
+          <div class="summary-row summary-subtotal">
+            <span data-i18n="cart.subtotal">Sous-total</span>
+            <span id="intl-summary-subtotal">—</span>
+          </div>
+
+          <div class="intl-shipping-notice">
+            <div class="intl-shipping-icon">🌍</div>
+            <div>
+              <strong data-i18n="cart.intl.shipping_title">Livraison internationale</strong>
+              <p class="small muted" data-i18n="cart.intl.shipping_note">Calculée sur devis personnalisé selon votre pays. Aucune surprise.</p>
+            </div>
+          </div>
+
+          <p class="small muted" style="text-align:center; margin: 14px 0 4px;" data-i18n="cart.intl.choose_cta">👇 Envoyez-nous votre panier pour recevoir un devis</p>
+
+          <button class="btn-order-zone btn-order-intl" onclick="orderInternational()">
+            <span class="order-zone-icon">📩</span>
+            <span class="order-zone-content">
+              <strong data-i18n="cart.intl.btn_title">Demander un devis</strong>
+              <span class="order-zone-detail" data-i18n="cart.intl.btn_detail">Réponse rapide en DM avec total + livraison</span>
+              <span class="order-zone-total" data-i18n="cart.intl.btn_subline">Paiement : virement ou Western Union</span>
+            </span>
+          </button>
+
+          <p class="small muted" style="text-align:center; margin: 14px 0 4px;" data-i18n="cart.intl.dm_intro">Le message sera copié et Instagram s'ouvrira ✨</p>
+
+          <button class="btn btn-outline btn-block" onclick="if(confirm(t('cart.confirm_empty'))) clearCart()" style="margin-top: 10px;" data-i18n="cart.btn.empty_cart">Vider le panier</button>
+
+          <details class="message-preview">
+            <summary data-i18n="cart.intl.preview_label">Aperçu du message Instagram</summary>
+            <pre id="intl-message-preview-text"></pre>
           </details>
         </aside>
       </div>
@@ -238,9 +280,9 @@
     </div>
   </footer>
 
-  <script src="js/i18n.js?v=20260533"></script>
-  <script src="js/products.js?v=20260533"></script>
-  <script src="js/cart.js?v=20260533"></script>
+  <script src="js/i18n.js?v=20260534"></script>
+  <script src="js/products.js?v=20260534"></script>
+  <script src="js/cart.js?v=20260534"></script>
   <script>
     function renderCartPage() {
       const cart = getCart();
@@ -256,6 +298,7 @@
       empty.hidden = true;
       filled.hidden = false;
 
+      // Liste des articles (toujours rendue, indépendamment du pays)
       const list = document.getElementById('cart-items');
       list.innerHTML = cart.map(item => `
         <article class="cart-item">
@@ -269,18 +312,33 @@
         </article>
       `).join('');
 
+      const isMaroc = (typeof getCurrentCountry === 'function')
+        ? getCurrentCountry().code === 'MA'
+        : true;
+
+      document.querySelectorAll('.cart-summary-maroc').forEach(el => el.hidden = !isMaroc);
+      document.querySelectorAll('.cart-summary-international').forEach(el => el.hidden = isMaroc);
+
+      if (isMaroc) {
+        renderMarocSummary(cart);
+      } else {
+        renderInternationalSummary(cart);
+      }
+    }
+
+    function renderMarocSummary(cart) {
       const subtotal = getCartSubtotal();
+      const fmt = (n) => (typeof formatPrice === 'function') ? formatPrice(n) : n + ' DH';
+      const tr  = (k, vars) => (typeof t === 'function') ? t(k, vars) : null;
+
       document.getElementById('summary-count').textContent = cart.length;
-      document.getElementById('summary-subtotal').textContent = (typeof formatPrice === 'function') ? formatPrice(subtotal) : subtotal + ' DH';
+      document.getElementById('summary-subtotal').textContent = fmt(subtotal);
 
       const remaining = getRemainingForFreeShipping();
       const fillPct = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
       const fspText = document.getElementById('fsp-text');
       const fspFill = document.getElementById('fsp-bar-fill');
       const fspBox  = document.getElementById('free-shipping-progress');
-
-      const fmt = (n) => (typeof formatPrice === 'function') ? formatPrice(n) : n + ' DH';
-      const tr  = (k, vars) => (typeof t === 'function') ? t(k, vars) : null;
 
       if (isFreeShipping()) {
         fspBox.classList.add('fsp-achieved');
@@ -295,12 +353,9 @@
 
       const casaShip = getShippingPrice('casa');
       const horsShip = getShippingPrice('hors_casa');
-      const casaTotal = subtotal + casaShip;
-      const horsTotal = subtotal + horsShip;
-
       const totalLabel = tr('cart.total') || 'Total';
-      document.getElementById('total-casa').textContent = `${totalLabel} : ${fmt(casaTotal)}`;
-      document.getElementById('total-hors').textContent = `${totalLabel} : ${fmt(horsTotal)}`;
+      document.getElementById('total-casa').textContent = `${totalLabel} : ${fmt(subtotal + casaShip)}`;
+      document.getElementById('total-hors').textContent = `${totalLabel} : ${fmt(subtotal + horsShip)}`;
 
       if (isFreeShipping()) {
         document.getElementById('detail-casa').textContent =
@@ -314,10 +369,28 @@
           tr('cart.hors.detail') || "Livraison +50 DH · Paiement à l'avance";
       }
 
-      document.getElementById('message-preview-text').textContent =
-        buildInstagramMessage('casa');
+      document.getElementById('message-preview-text').textContent = buildInstagramMessage('casa');
     }
+
+    function renderInternationalSummary(cart) {
+      const subtotalMad = getCartSubtotal();
+      const formattedSubtotal = (typeof formatPrice === 'function')
+        ? formatPrice(subtotalMad)
+        : subtotalMad + ' DH';
+
+      document.getElementById('intl-summary-count').textContent = cart.length;
+      document.getElementById('intl-summary-subtotal').textContent = formattedSubtotal;
+
+      document.getElementById('intl-message-preview-text').textContent = buildInternationalMessage();
+    }
+
     document.addEventListener('DOMContentLoaded', renderCartPage);
+
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'lhawta_country_v1' || e.key === 'lhawta_locale_v1') {
+        renderCartPage();
+      }
+    });
   </script>
   <!-- ===== MODALE : Laisser un avis ===== -->
   <div id="review-modal" class="review-modal" hidden>
@@ -394,8 +467,8 @@
     </div>
   </div>
 
-  <script src="js/reviews.js?v=20260533"></script>
-  <script src="js/review-form.js?v=20260533"></script>
+  <script src="js/reviews.js?v=20260534"></script>
+  <script src="js/review-form.js?v=20260534"></script>
 
 </body>
 </html>

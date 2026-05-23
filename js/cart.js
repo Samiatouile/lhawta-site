@@ -218,4 +218,81 @@ function showOrderModal(zone) {
   });
 }
 
+/* ---------- Message DM Instagram INTERNATIONAL ---------- */
+function buildInternationalMessage() {
+  const cart = getCart();
+  if (cart.length === 0) return '';
+
+  const country = (typeof getCurrentCountry === 'function')
+    ? getCurrentCountry()
+    : { code: 'MA', name_fr: 'Maroc', name_en: 'Morocco', currency: 'MAD' };
+  const locale = (typeof getCurrentLocale === 'function') ? getCurrentLocale() : 'fr-ma';
+  const subtotalMad = getCartSubtotal();
+  const isEnglish = locale === 'en';
+
+  const formatDouble = (mad) => {
+    if (typeof formatPrice === 'function' && country.currency !== 'MAD') {
+      return `${mad} DH (≈ ${formatPrice(mad)})`;
+    }
+    return `${mad} DH`;
+  };
+
+  const lines = cart.map(item =>
+    `• ${item.reference} — ${item.name} (${isEnglish ? 'Size' : 'Taille'} ${item.size}) — ${formatDouble(item.price)}`
+  ).join('\n');
+
+  const countryName = isEnglish ? country.name_en : country.name_fr;
+  const subtotalLine = formatDouble(subtotalMad);
+
+  if (isEnglish) {
+    return `Hello Lhawta 👋
+
+I'd like to order from ${countryName}:
+
+${lines}
+
+Subtotal: ${subtotalLine}
+(Shipping cost to be quoted)
+
+My country: ${countryName}
+My city: (please specify)
+Preferred payment: (Bank transfer / Western Union)
+
+Could you send me a quote with international shipping?
+
+Thank you!`;
+  }
+
+  return `Bonjour Lhawta 👋
+
+Je souhaite commander depuis ${countryName} :
+
+${lines}
+
+Sous-total : ${subtotalLine}
+(Frais de livraison à devis)
+
+Mon pays : ${countryName}
+Ma ville : (à préciser)
+Paiement préféré : (Virement bancaire / Western Union)
+
+Pourriez-vous me transmettre un devis avec la livraison internationale ?
+
+Merci !`;
+}
+
+/* ---------- Commander en mode international ---------- */
+function orderInternational() {
+  const cart = getCart();
+  if (cart.length === 0) {
+    showToast(typeof t === 'function' ? t('cart.empty.title') : 'Ton panier est vide 🛒');
+    return;
+  }
+  const message = buildInternationalMessage();
+  navigator.clipboard.writeText(message).then(() => {
+    showToast('✓ Message copié ! Colle-le dans le DM');
+  }).catch(() => {});
+  window.open(`https://ig.me/m/${IG_USERNAME}`, '_blank');
+}
+
 document.addEventListener('DOMContentLoaded', updateCartBadge);

@@ -240,6 +240,16 @@ const TRANSLATIONS = {
     "intl.cta.subtitle": "Notre équipe vous répond rapidement sur Instagram avec un devis personnalisé.",
     "intl.cta.btn": "📩 Demander un devis",
 
+    // ===== CART INTERNATIONAL =====
+    "cart.intl.shipping_title": "Livraison internationale",
+    "cart.intl.shipping_note": "Calculée sur devis personnalisé selon votre pays. Aucune surprise.",
+    "cart.intl.choose_cta": "👇 Envoyez-nous votre panier pour recevoir un devis",
+    "cart.intl.btn_title": "Demander un devis",
+    "cart.intl.btn_detail": "Réponse rapide en DM avec total + livraison",
+    "cart.intl.btn_subline": "Paiement : virement ou Western Union",
+    "cart.intl.dm_intro": "Le message sera copié et Instagram s'ouvrira ✨",
+    "cart.intl.preview_label": "Aperçu du message Instagram",
+
     'banner.detected': 'On a détecté que tu es en {country}',
     'banner.keep': 'Garder',
     'banner.change': 'Changer'
@@ -458,6 +468,16 @@ const TRANSLATIONS = {
     "intl.cta.title": "Prêt à commander ?",
     "intl.cta.subtitle": "Notre équipe vous répond rapidement sur Instagram avec un devis personnalisé.",
     "intl.cta.btn": "📩 Demander un devis",
+
+    // ===== CART INTERNATIONAL =====
+    "cart.intl.shipping_title": "Livraison internationale",
+    "cart.intl.shipping_note": "Calculée sur devis personnalisé selon votre pays. Aucune surprise.",
+    "cart.intl.choose_cta": "👇 Envoyez-nous votre panier pour recevoir un devis",
+    "cart.intl.btn_title": "Demander un devis",
+    "cart.intl.btn_detail": "Réponse rapide en DM avec total + livraison",
+    "cart.intl.btn_subline": "Paiement : virement ou Western Union",
+    "cart.intl.dm_intro": "Le message sera copié et Instagram s'ouvrira ✨",
+    "cart.intl.preview_label": "Aperçu du message Instagram",
 
     'banner.detected': 'Nous avons détecté que vous êtes en {country}',
     'banner.keep': 'Garder',
@@ -678,6 +698,16 @@ const TRANSLATIONS = {
     "intl.cta.subtitle": "Nuestro equipo responde rápido en Instagram con un presupuesto personalizado.",
     "intl.cta.btn": "📩 Pedir un presupuesto",
 
+    // ===== CART INTERNATIONAL =====
+    "cart.intl.shipping_title": "Envío internacional",
+    "cart.intl.shipping_note": "Calculado mediante presupuesto personalizado según tu país. Sin sorpresas.",
+    "cart.intl.choose_cta": "👇 Envíanos tu carrito para recibir un presupuesto",
+    "cart.intl.btn_title": "Pedir un presupuesto",
+    "cart.intl.btn_detail": "Respuesta rápida por DM con total + envío",
+    "cart.intl.btn_subline": "Pago: transferencia o Western Union",
+    "cart.intl.dm_intro": "El mensaje se copiará y se abrirá Instagram ✨",
+    "cart.intl.preview_label": "Vista previa del mensaje de Instagram",
+
     'banner.detected': 'Hemos detectado que estás en {country}',
     'banner.keep': 'Mantener',
     'banner.change': 'Cambiar'
@@ -897,6 +927,16 @@ const TRANSLATIONS = {
     "intl.cta.subtitle": "Our team replies quickly on Instagram with a personalized quote.",
     "intl.cta.btn": "📩 Request a quote",
 
+    // ===== CART INTERNATIONAL =====
+    "cart.intl.shipping_title": "International shipping",
+    "cart.intl.shipping_note": "Calculated on a personalized quote based on your country. No surprises.",
+    "cart.intl.choose_cta": "👇 Send us your cart to receive a quote",
+    "cart.intl.btn_title": "Request a quote",
+    "cart.intl.btn_detail": "Quick DM reply with total + shipping",
+    "cart.intl.btn_subline": "Payment: bank transfer or Western Union",
+    "cart.intl.dm_intro": "The message will be copied and Instagram will open ✨",
+    "cart.intl.preview_label": "Instagram message preview",
+
     'banner.detected': "We detected you're in {country}",
     'banner.keep': 'Keep',
     'banner.change': 'Change'
@@ -925,12 +965,18 @@ function setCountry(countryCode) {
   applyTranslations();
   refreshAllPrices();
   refreshSelectors();
+  if (typeof renderCartPage === 'function') {
+    try { renderCartPage(); } catch(e) {}
+  }
 }
 function setLocale(localeCode) {
   if (!TRANSLATIONS[localeCode]) return;
   localStorage.setItem(STORAGE_LOCALE_KEY, localeCode);
   applyTranslations();
   refreshSelectors();
+  if (typeof renderCartPage === 'function') {
+    try { renderCartPage(); } catch(e) {}
+  }
 }
 
 /* ---------- Traduction ---------- */
