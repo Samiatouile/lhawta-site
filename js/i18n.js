@@ -204,6 +204,42 @@ const TRANSLATIONS = {
     "shipping.cta.subtitle": "Notre équipe te répond rapidement sur Instagram.",
     "shipping.cta.btn": "📩 Nous contacter",
 
+    // ===== INTERNATIONAL =====
+    "intl.welcome.title": "Commandes internationales",
+    "intl.welcome.p1": "Lhawta expédie ses pièces partout dans le monde. Chaque commande internationale est traitée personnellement pour vous garantir la meilleure expérience.",
+    "intl.welcome.highlight": "✓ Toutes les commandes hors Maroc sont confirmées en DM, avec un devis personnalisé selon votre pays.",
+    "intl.shipping.title": "Expédition et délais",
+    "intl.shipping.p1": "Une fois votre commande confirmée et le paiement reçu, nous préparons et expédions votre pièce sous 48h depuis Casablanca.",
+    "intl.shipping.li1": "<strong>Europe</strong> (France, Belgique, Espagne, Allemagne, etc.) : 5 à 10 jours ouvrables",
+    "intl.shipping.li2": "<strong>Amérique du Nord</strong> (Canada, États-Unis) : 7 à 14 jours ouvrables",
+    "intl.shipping.li3": "<strong>Reste du monde</strong> : 10 à 21 jours ouvrables selon la destination",
+    "intl.shipping.note": "Les délais peuvent varier selon les douanes locales. Un numéro de suivi vous est communiqué après expédition.",
+    "intl.payment.title": "Paiement",
+    "intl.payment.p1": "Pour toute commande internationale, le paiement se fait <strong>intégralement à l'avance</strong>. Deux méthodes acceptées :",
+    "intl.payment.li1": "<strong>Virement bancaire international (SWIFT)</strong> — nous vous communiquons notre IBAN par DM",
+    "intl.payment.li2": "<strong>Western Union</strong> — rapide et disponible dans la plupart des pays",
+    "intl.payment.highlight": "✓ Dès la réception du paiement, votre pièce est expédiée dans les 48h.",
+    "intl.payment.note": "Les frais bancaires éventuels (virement, conversion de devise) sont à la charge du client.",
+    "intl.quote.title": "Devis personnalisé en DM",
+    "intl.quote.p1": "Le coût final (pièce + livraison + éventuels frais de douane) vous est communiqué <strong>avant tout paiement</strong>. Aucune surprise.",
+    "intl.quote.p2": "Pour obtenir votre devis, envoyez-nous un message Instagram avec :",
+    "intl.quote.li1": "La référence de la ou des pièces qui vous intéressent",
+    "intl.quote.li2": "Votre pays et ville de livraison",
+    "intl.quote.li3": "Votre taille (au cas où on doit confirmer la disponibilité)",
+    "intl.quote.p3": "Notre équipe vous répond généralement sous 1h entre 10h et 22h (heure Maroc).",
+    "intl.support.title": "Service client 7j/7",
+    "intl.support.p1": "Nous sommes disponibles <strong>7 jours sur 7</strong> pour répondre à vos questions, vous conseiller sur une taille, ou faire le suivi de votre commande.",
+    "intl.support.p2": "Le meilleur moyen de nous joindre : <a href=\"https://www.instagram.com/lhawta.casablanca/\" target=\"_blank\" rel=\"noopener\">DM sur Instagram</a>. Réponse rapide entre 10h et 22h (heure Maroc).",
+    "intl.customs.title": "Douanes et taxes",
+    "intl.customs.p1": "Les éventuels frais de douane et taxes d'importation sont à la charge du destinataire, conformément aux réglementations locales.",
+    "intl.customs.p2": "Pour les commandes vers l'Europe, ces frais sont généralement négligeables pour les vêtements de seconde main. Nous restons disponibles pour vous renseigner sur les usages dans votre pays.",
+    "intl.returns.title": "Retours et échanges",
+    "intl.returns.p1": "Nos pièces étant uniques (seconde main), les retours ne sont pas systématiques. Toutefois, si la pièce reçue ne correspond pas à la description, contactez-nous dans les 48h après réception et nous trouverons une solution adaptée.",
+    "intl.returns.note": "Pour éviter tout souci, n'hésitez pas à demander des photos supplémentaires ou des précisions sur les mesures avant de commander.",
+    "intl.cta.title": "Prêt à commander ?",
+    "intl.cta.subtitle": "Notre équipe vous répond rapidement sur Instagram avec un devis personnalisé.",
+    "intl.cta.btn": "📩 Demander un devis",
+
     'banner.detected': 'On a détecté que tu es en {country}',
     'banner.keep': 'Garder',
     'banner.change': 'Changer'
@@ -386,6 +422,42 @@ const TRANSLATIONS = {
     "shipping.cta.title": "Une question avant de commander ?",
     "shipping.cta.subtitle": "Notre équipe vous répond rapidement sur Instagram.",
     "shipping.cta.btn": "📩 Nous contacter",
+
+    // ===== INTERNATIONAL =====
+    "intl.welcome.title": "Commandes internationales",
+    "intl.welcome.p1": "Lhawta expédie ses pièces partout dans le monde. Chaque commande internationale est traitée personnellement pour vous garantir la meilleure expérience.",
+    "intl.welcome.highlight": "✓ Toutes les commandes hors Maroc sont confirmées en message direct Instagram, avec un devis personnalisé selon votre pays.",
+    "intl.shipping.title": "Expédition et délais",
+    "intl.shipping.p1": "Une fois votre commande confirmée et le paiement reçu, nous préparons et expédions votre pièce sous 48h depuis Casablanca.",
+    "intl.shipping.li1": "<strong>Europe</strong> (France, Belgique, Espagne, Allemagne, etc.) : 5 à 10 jours ouvrables",
+    "intl.shipping.li2": "<strong>Amérique du Nord</strong> (Canada, États-Unis) : 7 à 14 jours ouvrables",
+    "intl.shipping.li3": "<strong>Reste du monde</strong> : 10 à 21 jours ouvrables selon la destination",
+    "intl.shipping.note": "Les délais peuvent varier selon les douanes locales. Un numéro de suivi vous est communiqué après expédition.",
+    "intl.payment.title": "Paiement",
+    "intl.payment.p1": "Pour toute commande internationale, le paiement se fait <strong>intégralement à l'avance</strong>. Deux méthodes acceptées :",
+    "intl.payment.li1": "<strong>Virement bancaire international (SWIFT)</strong> — nous vous communiquons notre IBAN par message",
+    "intl.payment.li2": "<strong>Western Union</strong> — rapide et disponible dans la plupart des pays",
+    "intl.payment.highlight": "✓ Dès la réception du paiement, votre pièce est expédiée dans les 48h.",
+    "intl.payment.note": "Les frais bancaires éventuels (virement, conversion de devise) sont à la charge du client.",
+    "intl.quote.title": "Devis personnalisé sur demande",
+    "intl.quote.p1": "Le coût final (pièce + livraison + éventuels frais de douane) vous est communiqué <strong>avant tout paiement</strong>. Aucune surprise.",
+    "intl.quote.p2": "Pour obtenir votre devis, envoyez-nous un message Instagram avec :",
+    "intl.quote.li1": "La référence de la ou des pièces qui vous intéressent",
+    "intl.quote.li2": "Votre pays et ville de livraison",
+    "intl.quote.li3": "Votre taille (au cas où nous devons confirmer la disponibilité)",
+    "intl.quote.p3": "Notre équipe vous répond généralement sous 1h entre 10h et 22h (heure Maroc, GMT+1).",
+    "intl.support.title": "Service client 7j/7",
+    "intl.support.p1": "Nous sommes disponibles <strong>7 jours sur 7</strong> pour répondre à vos questions, vous conseiller sur une taille, ou faire le suivi de votre commande.",
+    "intl.support.p2": "Le meilleur moyen de nous joindre : <a href=\"https://www.instagram.com/lhawta.casablanca/\" target=\"_blank\" rel=\"noopener\">message Instagram</a>. Réponse rapide entre 10h et 22h (heure Maroc).",
+    "intl.customs.title": "Douanes et taxes",
+    "intl.customs.p1": "Les éventuels frais de douane et taxes d'importation sont à la charge du destinataire, conformément aux réglementations locales.",
+    "intl.customs.p2": "Pour les commandes vers l'Europe, ces frais sont généralement négligeables pour les vêtements de seconde main. Nous restons disponibles pour vous renseigner sur les usages dans votre pays.",
+    "intl.returns.title": "Retours et échanges",
+    "intl.returns.p1": "Nos pièces étant uniques (seconde main), les retours ne sont pas systématiques. Toutefois, si la pièce reçue ne correspond pas à la description, contactez-nous dans les 48h après réception et nous trouverons une solution adaptée.",
+    "intl.returns.note": "Pour éviter tout souci, n'hésitez pas à demander des photos supplémentaires ou des précisions sur les mesures avant de commander.",
+    "intl.cta.title": "Prêt à commander ?",
+    "intl.cta.subtitle": "Notre équipe vous répond rapidement sur Instagram avec un devis personnalisé.",
+    "intl.cta.btn": "📩 Demander un devis",
 
     'banner.detected': 'Nous avons détecté que vous êtes en {country}',
     'banner.keep': 'Garder',
@@ -570,6 +642,42 @@ const TRANSLATIONS = {
     "shipping.cta.subtitle": "Nuestro equipo responde rápido en Instagram.",
     "shipping.cta.btn": "📩 Contactar",
 
+    // ===== INTERNATIONAL =====
+    "intl.welcome.title": "Pedidos internacionales",
+    "intl.welcome.p1": "Lhawta envía sus piezas a todo el mundo. Cada pedido internacional se gestiona personalmente para garantizar la mejor experiencia.",
+    "intl.welcome.highlight": "✓ Todos los pedidos fuera de Marruecos se confirman por DM de Instagram, con un presupuesto personalizado según tu país.",
+    "intl.shipping.title": "Envío y plazos",
+    "intl.shipping.p1": "Una vez confirmado tu pedido y recibido el pago, preparamos y enviamos tu pieza en 48h desde Casablanca.",
+    "intl.shipping.li1": "<strong>Europa</strong> (Francia, Bélgica, España, Alemania, etc.): 5 a 10 días laborables",
+    "intl.shipping.li2": "<strong>América del Norte</strong> (Canadá, EE.UU.): 7 a 14 días laborables",
+    "intl.shipping.li3": "<strong>Resto del mundo</strong>: 10 a 21 días laborables según el destino",
+    "intl.shipping.note": "Los plazos pueden variar según las aduanas locales. Tras el envío recibirás un número de seguimiento.",
+    "intl.payment.title": "Pago",
+    "intl.payment.p1": "Para todos los pedidos internacionales, el pago se realiza <strong>íntegramente por adelantado</strong>. Dos métodos aceptados:",
+    "intl.payment.li1": "<strong>Transferencia bancaria internacional (SWIFT)</strong> — te enviamos nuestro IBAN por DM",
+    "intl.payment.li2": "<strong>Western Union</strong> — rápido y disponible en la mayoría de países",
+    "intl.payment.highlight": "✓ Una vez recibido el pago, tu pieza se envía en 48h.",
+    "intl.payment.note": "Los gastos bancarios (transferencia, conversión de divisa) corren a cargo del cliente.",
+    "intl.quote.title": "Presupuesto personalizado a petición",
+    "intl.quote.p1": "El coste final (pieza + envío + posibles aranceles) se te comunica <strong>antes de cualquier pago</strong>. Sin sorpresas.",
+    "intl.quote.p2": "Para recibir tu presupuesto, envíanos un mensaje de Instagram con:",
+    "intl.quote.li1": "La referencia de la(s) pieza(s) que te interesan",
+    "intl.quote.li2": "Tu país y ciudad de entrega",
+    "intl.quote.li3": "Tu talla (para confirmar disponibilidad)",
+    "intl.quote.p3": "Nuestro equipo suele responder en menos de 1h entre las 10h y las 22h (hora de Marruecos, GMT+1).",
+    "intl.support.title": "Atención al cliente 7/7",
+    "intl.support.p1": "Estamos disponibles <strong>los 7 días de la semana</strong> para responder a tus preguntas, asesorarte con la talla o seguir tu pedido.",
+    "intl.support.p2": "La mejor forma de contactarnos: <a href=\"https://www.instagram.com/lhawta.casablanca/\" target=\"_blank\" rel=\"noopener\">DM de Instagram</a>. Respuesta rápida entre las 10h y las 22h (hora de Marruecos).",
+    "intl.customs.title": "Aduanas e impuestos",
+    "intl.customs.p1": "Los posibles aranceles e impuestos de importación corren a cargo del destinatario, según la normativa local.",
+    "intl.customs.p2": "Para pedidos a Europa, estos gastos suelen ser insignificantes para la ropa de segunda mano. Estamos a tu disposición para informarte sobre las prácticas habituales en tu país.",
+    "intl.returns.title": "Devoluciones y cambios",
+    "intl.returns.p1": "Como nuestras piezas son únicas (segunda mano), las devoluciones no son sistemáticas. Si la pieza recibida no coincide con la descripción, contáctanos en las 48h siguientes a la recepción y encontraremos una solución.",
+    "intl.returns.note": "Para evitar problemas, no dudes en pedir más fotos o detalles sobre las medidas antes de comprar.",
+    "intl.cta.title": "¿Listo para pedir?",
+    "intl.cta.subtitle": "Nuestro equipo responde rápido en Instagram con un presupuesto personalizado.",
+    "intl.cta.btn": "📩 Pedir un presupuesto",
+
     'banner.detected': 'Hemos detectado que estás en {country}',
     'banner.keep': 'Mantener',
     'banner.change': 'Cambiar'
@@ -753,6 +861,42 @@ const TRANSLATIONS = {
     "shipping.cta.subtitle": "Our team replies fast on Instagram.",
     "shipping.cta.btn": "📩 Contact us",
 
+    // ===== INTERNATIONAL =====
+    "intl.welcome.title": "International orders",
+    "intl.welcome.p1": "Lhawta ships its pieces worldwide. Every international order is handled personally to ensure the best experience.",
+    "intl.welcome.highlight": "✓ All orders outside Morocco are confirmed via Instagram DM, with a personalized quote based on your country.",
+    "intl.shipping.title": "Shipping and delays",
+    "intl.shipping.p1": "Once your order is confirmed and payment received, we prepare and ship your piece within 48h from Casablanca.",
+    "intl.shipping.li1": "<strong>Europe</strong> (France, Belgium, Spain, Germany, etc.): 5 to 10 business days",
+    "intl.shipping.li2": "<strong>North America</strong> (Canada, USA): 7 to 14 business days",
+    "intl.shipping.li3": "<strong>Rest of the world</strong>: 10 to 21 business days depending on destination",
+    "intl.shipping.note": "Delays may vary depending on local customs. A tracking number is sent to you after shipping.",
+    "intl.payment.title": "Payment",
+    "intl.payment.p1": "For all international orders, payment is made <strong>entirely in advance</strong>. Two methods accepted:",
+    "intl.payment.li1": "<strong>International bank transfer (SWIFT)</strong> — we share our IBAN via DM",
+    "intl.payment.li2": "<strong>Western Union</strong> — fast and available in most countries",
+    "intl.payment.highlight": "✓ Once payment is received, your piece is shipped within 48h.",
+    "intl.payment.note": "Any bank fees (transfer, currency conversion) are at the customer's charge.",
+    "intl.quote.title": "Personalized quote on request",
+    "intl.quote.p1": "The final cost (item + shipping + possible customs fees) is communicated to you <strong>before any payment</strong>. No surprises.",
+    "intl.quote.p2": "To get your quote, send us an Instagram message with:",
+    "intl.quote.li1": "The reference of the piece(s) you're interested in",
+    "intl.quote.li2": "Your country and city of delivery",
+    "intl.quote.li3": "Your size (so we can confirm availability)",
+    "intl.quote.p3": "Our team usually replies within 1h between 10am and 10pm (Morocco time, GMT+1).",
+    "intl.support.title": "7/7 customer support",
+    "intl.support.p1": "We are available <strong>7 days a week</strong> to answer your questions, advise on sizing, or follow up on your order.",
+    "intl.support.p2": "Best way to reach us: <a href=\"https://www.instagram.com/lhawta.casablanca/\" target=\"_blank\" rel=\"noopener\">Instagram DM</a>. Quick reply between 10am and 10pm (Morocco time).",
+    "intl.customs.title": "Customs and taxes",
+    "intl.customs.p1": "Any customs duties and import taxes are at the recipient's charge, in accordance with local regulations.",
+    "intl.customs.p2": "For orders to Europe, these fees are generally negligible for secondhand clothing. We remain available to inform you about the practices in your country.",
+    "intl.returns.title": "Returns and exchanges",
+    "intl.returns.p1": "Since our pieces are unique (secondhand), returns are not systematic. However, if the piece received does not match the description, contact us within 48h after receipt and we will find a suitable solution.",
+    "intl.returns.note": "To avoid any issue, feel free to ask for additional photos or details on measurements before ordering.",
+    "intl.cta.title": "Ready to order?",
+    "intl.cta.subtitle": "Our team replies quickly on Instagram with a personalized quote.",
+    "intl.cta.btn": "📩 Request a quote",
+
     'banner.detected': "We detected you're in {country}",
     'banner.keep': 'Keep',
     'banner.change': 'Change'
@@ -821,6 +965,21 @@ function applyTranslations() {
     el.innerHTML = t(key);
   });
   document.documentElement.setAttribute('lang', getCurrentLocale().split('-')[0]);
+
+  // Affichage conditionnel selon le pays (page livraison)
+  const isMaroc = getCurrentCountry().code === 'MA';
+  document.querySelectorAll('.content-maroc').forEach(el => {
+    el.hidden = !isMaroc;
+  });
+  document.querySelectorAll('.content-international').forEach(el => {
+    el.hidden = isMaroc;
+  });
+
+  // Sous-titre de la page livraison adapté
+  const shippingSubtitle = document.querySelector('.page-header p[data-i18n="shipping.subtitle"]');
+  if (shippingSubtitle) {
+    shippingSubtitle.textContent = isMaroc ? t('shipping.subtitle') : t('intl.welcome.p1');
+  }
 }
 
 /* ---------- Prix ---------- */
