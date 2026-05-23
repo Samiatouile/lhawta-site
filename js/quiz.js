@@ -91,9 +91,9 @@ function renderMatchCard(p, score, reasons) {
         <p class="product-meta">${p.category} · Taille ${p.size}</p>
         <p class="product-price">${p.price} DH</p>
         <p class="product-reason">${reasonText}</p>
-        <a class="btn btn-dark btn-block" href="${IG_URL}" target="_blank" rel="noopener">
-          DM pour commander · ${p.reference}
-        </a>
+        <button class="btn-add-cart" onclick="addToCart(${p.id})">
+          🛒 Ajouter au panier
+        </button>
       </div>
     </article>
   `;
