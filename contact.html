@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260529" />
+  <link rel="stylesheet" href="css/style.css?v=20260530" />
 </head>
 <body class="theme-light">
 
@@ -69,27 +69,27 @@
         <a class="contact-card" href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener">
           <div class="contact-icon">IG</div>
           <div>
-            <h3>Instagram</h3>
+            <h3 data-i18n="contact.ig.title">Instagram</h3>
             <p class="muted">@lhawta.casablanca</p>
-            <p class="small">Le moyen le plus rapide pour réserver.</p>
+            <p class="small" data-i18n="contact.ig.desc">Le moyen le plus rapide pour réserver.</p>
           </div>
         </a>
 
         <a class="contact-card" href="#" onclick="alert('Ajoute ton numéro WhatsApp ici.'); return false;">
           <div class="contact-icon">WA</div>
           <div>
-            <h3>WhatsApp</h3>
+            <h3 data-i18n="contact.wa.title">WhatsApp</h3>
             <p class="muted">+212 6 XX XX XX XX</p>
-            <p class="small">Bientôt disponible.</p>
+            <p class="small" data-i18n="contact.wa.desc">Bientôt disponible.</p>
           </div>
         </a>
 
         <div class="contact-card static">
           <div class="contact-icon">📍</div>
           <div>
-            <h3>Casablanca</h3>
-            <p class="muted">Maroc</p>
-            <p class="small">Livraison sur tout le Maroc, retrait possible sur Casa.</p>
+            <h3 data-i18n="contact.location.title">Casablanca</h3>
+            <p class="muted" data-i18n="contact.location.country">Maroc</p>
+            <p class="small" data-i18n="contact.location.note">Livraison sur tout le Maroc, retrait possible sur Casa.</p>
           </div>
         </div>
 
@@ -103,15 +103,15 @@
         <form id="prepare-form" class="contact-form" onsubmit="event.preventDefault(); prepareMessage();">
           <div class="form-row">
             <label for="cf-name" data-i18n="contact.form.name">Ton nom</label>
-            <input type="text" id="cf-name" placeholder="Ex: Yassine" />
+            <input type="text" id="cf-name" placeholder="Ex: Yassine" data-i18n-placeholder="contact.ph.name" />
           </div>
           <div class="form-row">
             <label for="cf-ig" data-i18n="contact.form.ig">Ton Instagram</label>
-            <input type="text" id="cf-ig" placeholder="@ton_pseudo" />
+            <input type="text" id="cf-ig" placeholder="@ton_pseudo" data-i18n-placeholder="contact.ph.ig" />
           </div>
           <div class="form-row">
             <label for="cf-message" data-i18n="contact.form.message">Ton message (référence du produit, taille, etc.)</label>
-            <textarea id="cf-message" rows="5" placeholder="Salam, je suis intéressé(e) par la pièce LHW-001..."></textarea>
+            <textarea id="cf-message" rows="5" placeholder="Salam, je suis intéressé(e) par la pièce LHW-001..." data-i18n-placeholder="contact.ph.message"></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-block" data-i18n="contact.form.submit">Préparer mon message</button>
         </form>
@@ -243,8 +243,8 @@
     </div>
   </footer>
 
-  <script src="js/i18n.js?v=20260529"></script>
-  <script src="js/cart.js?v=20260529"></script>
+  <script src="js/i18n.js?v=20260530"></script>
+  <script src="js/cart.js?v=20260530"></script>
   <script>
     // Construit un message prêt à coller dans le DM Instagram
     function prepareMessage() {
@@ -340,8 +340,8 @@ Merci !`;
     </div>
   </div>
 
-  <script src="js/reviews.js?v=20260529"></script>
-  <script src="js/review-form.js?v=20260529"></script>
+  <script src="js/reviews.js?v=20260530"></script>
+  <script src="js/review-form.js?v=20260530"></script>
 
 </body>
 </html>
