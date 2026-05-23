@@ -1051,7 +1051,11 @@ function refreshAllPrices() {
 function refreshSelectors() {
   const country = getCurrentCountry();
   document.querySelectorAll('.country-selector-current').forEach(el => {
-    el.innerHTML = country.flag + ' ' + country.currency;
+    if (window.innerWidth <= 720) {
+      el.innerHTML = country.flag;
+    } else {
+      el.innerHTML = country.flag + ' ' + country.currency;
+    }
   });
   document.querySelectorAll('.country-option').forEach(el => {
     const code = el.getAttribute('data-country');
@@ -1139,3 +1143,20 @@ async function initI18n() {
 }
 
 document.addEventListener('DOMContentLoaded', initI18n);
+
+// Re-render le sélecteur quand on resize (mobile <-> desktop)
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(refreshSelectors, 150);
+});
+
+// Ferme le dropdown pays au clic en dehors
+document.addEventListener('click', (e) => {
+  const selector = document.querySelector('.country-selector');
+  const dropdown = document.getElementById('country-dropdown');
+  if (!selector || !dropdown) return;
+  if (!selector.contains(e.target)) {
+    dropdown.classList.remove('open');
+  }
+});

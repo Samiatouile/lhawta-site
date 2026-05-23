@@ -2376,7 +2376,6 @@ body.theme-dark .blog-card-link { color: var(--color-accent); }
 .banner-btn:hover { opacity: .9; }
 
 @media (max-width: 720px) {
-  .country-selector { display: none; }
   .lhw-detect-banner {
     top: 70px;
     flex-direction: column;
@@ -2428,4 +2427,44 @@ body.theme-light .cart-summary-international .intl-shipping-notice {
 .btn-order-intl:hover {
   background: var(--color-accent-dark);
   box-shadow: 0 0 18px var(--color-accent-glow);
+}
+
+/* =========================================================
+   COUNTRY SELECTOR — Version mobile compacte (drapeau seul)
+   ========================================================= */
+
+@media (max-width: 720px) {
+  .country-selector-btn {
+    padding: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid var(--color-accent);
+    background: var(--color-bg-section, #1A1A1A);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0 0 8px rgba(245, 225, 58, 0.3);
+    transition: transform .15s, box-shadow .2s;
+    font-size: 0; /* cache la flèche " ▾" en texte direct */
+  }
+  .country-selector-btn:hover,
+  .country-selector-btn:active {
+    transform: scale(1.08);
+    box-shadow: 0 0 14px var(--color-accent-glow);
+  }
+  .country-selector-btn .country-selector-current {
+    font-size: 1.1rem; /* on remontre uniquement le drapeau */
+  }
+
+  .country-selector {
+    margin-left: 4px;
+  }
+
+  .country-dropdown {
+    right: -10px;
+    min-width: 220px;
+    max-width: calc(100vw - 24px);
+  }
 }
