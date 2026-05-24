@@ -29,12 +29,12 @@ function addToCart(productId) {
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
   if (product.status === 'Vendu') {
-    showToast('Cette pièce est déjà vendue 😢');
+    showToast(typeof t === 'function' ? t('toast.sold') : 'Cette pièce est déjà vendue 😢');
     return;
   }
   const cart = getCart();
   if (cart.find(item => item.id === productId)) {
-    showToast('Cette pièce est déjà dans ton panier ✓');
+    showToast(typeof t === 'function' ? t('toast.already_in_cart') : 'Cette pièce est déjà dans ton panier ✓');
     return;
   }
   cart.push({
@@ -46,7 +46,9 @@ function addToCart(productId) {
     image: product.image,
   });
   saveCart(cart);
-  showToast(`✓ ${product.name} ajouté au panier`);
+  showToast(
+    (typeof t === 'function' ? t('toast.added') : '✓ {item} ajouté au panier').replace('{item}', product.name)
+  );
 }
 
 function removeFromCart(productId) {
@@ -113,41 +115,51 @@ function buildInstagramMessage(zone) {
   if (cart.length === 0) return '';
 
   const shipping = SHIPPING[zone];
+  const _ = (k, f) => (typeof t === 'function') ? t(k) : (f || k);
+  const sizeLabel = _('shop.label.size', 'Taille');
+
   const lines = cart.map(item =>
-    `• ${item.reference} — ${item.name} (Taille ${item.size}) — ${item.price} DH`
+    `• ${item.reference} — ${item.name} (${sizeLabel} ${item.size}) — ${item.price} DH`
   ).join('\n');
 
   const subtotal = getCartSubtotal();
   const shipPrice = getShippingPrice(zone);
   const total = subtotal + shipPrice;
   const shipDisplay = shipPrice === 0
-    ? 'GRATUITE 🎁 (commande > 500 DH)'
+    ? _('dm.ma.free_shipping', 'GRATUITE 🎁 (commande > 500 DH)')
     : `${shipPrice} DH`;
 
-  return `Salam Lhawta 👋
+  const zoneLabel = zone === 'casa'
+    ? _('shipping.zone.casa', shipping.label)
+    : _('shipping.zone.hors_casa', shipping.label);
+  const paymentLabel = zone === 'casa'
+    ? _('shipping.payment.cash', shipping.payment)
+    : _('shipping.payment.advance', shipping.payment);
 
-Je veux commander :
+  return `${_('dm.ma.intro', 'Salam Lhawta 👋')}
+
+${_('dm.ma.want_order', 'Je veux commander :')}
 ${lines}
 
-Sous-total : ${subtotal} DH
-Livraison (${shipping.label}) : ${shipDisplay}
-TOTAL : ${total} DH
+${_('dm.ma.subtotal', 'Sous-total')} : ${subtotal} DH
+${_('dm.ma.shipping', 'Livraison')} (${zoneLabel}) : ${shipDisplay}
+${_('dm.ma.total', 'TOTAL')} : ${total} DH
 
-Ma zone : ${shipping.label}
-Mode de paiement : ${shipping.payment}
-Ma ville exacte : (à préciser)
+${_('dm.ma.zone', 'Ma zone')} : ${zoneLabel}
+${_('dm.ma.payment', 'Mode de paiement')} : ${paymentLabel}
+${_('dm.ma.city', 'Ma ville exacte : (à préciser)')}
 
-Merci !`;
+${_('dm.ma.thanks', 'Merci !')}`;
 }
 
 function orderInstagram(zone) {
   const cart = getCart();
   if (cart.length === 0) {
-    showToast('Ton panier est vide 🛒');
+    showToast(typeof t === 'function' ? t('toast.empty') : 'Ton panier est vide 🛒');
     return;
   }
   if (!SHIPPING[zone]) {
-    showToast('Zone de livraison invalide');
+    showToast(typeof t === 'function' ? t('toast.invalid_zone') : 'Zone de livraison invalide');
     return;
   }
   showOrderModal(zone);
@@ -164,30 +176,37 @@ function showOrderModal(zone) {
   const message = buildInstagramMessage(zone);
   const shipDisplay = shipPrice === 0 ? '🎁 GRATUITE' : `${shipPrice} DH`;
 
+  const _ = (k, f) => (typeof t === 'function') ? t(k) : (f || k);
+  const titleKey = zone === 'casa' ? 'modal.order.title_casa' : 'modal.order.title_hors';
+  const titleFallback = zone === 'casa' ? 'Commande à Casablanca' : 'Commande hors Casablanca';
+  const zoneLabel = zone === 'casa'
+    ? _('shipping.zone.casa', shipping.label)
+    : _('shipping.zone.hors_casa', shipping.label);
+
   const modal = document.createElement('div');
   modal.id = 'lhw-modal';
   modal.className = 'lhw-modal';
   modal.innerHTML = `
     <div class="lhw-modal-backdrop"></div>
     <div class="lhw-modal-box" role="dialog" aria-modal="true">
-      <button class="lhw-modal-close" aria-label="Fermer">✕</button>
-      <h2>Commande à ${shipping.label}</h2>
+      <button class="lhw-modal-close" aria-label="${_('aria.close', 'Fermer')}">✕</button>
+      <h2>${_(titleKey, titleFallback)}</h2>
       <div class="lhw-modal-totals">
-        <div class="lhw-totals-row"><span>Sous-total</span><span>${subtotal} DH</span></div>
-        <div class="lhw-totals-row"><span>Livraison (${shipping.label})</span><span>${shipDisplay}</span></div>
-        <div class="lhw-totals-row lhw-totals-grand"><span>TOTAL</span><span>${total} DH</span></div>
+        <div class="lhw-totals-row"><span>${_('dm.ma.subtotal', 'Sous-total')}</span><span>${subtotal} DH</span></div>
+        <div class="lhw-totals-row"><span>${_('dm.ma.shipping', 'Livraison')} (${zoneLabel})</span><span>${shipDisplay}</span></div>
+        <div class="lhw-totals-row lhw-totals-grand"><span>${_('dm.ma.total', 'TOTAL')}</span><span>${total} DH</span></div>
       </div>
       <ol class="lhw-modal-steps">
-        <li><strong>Copie</strong> le message ci-dessous</li>
-        <li><strong>Ouvre</strong> Instagram</li>
-        <li><strong>Colle</strong> dans le DM et envoie</li>
+        <li><strong>${_('modal.order.step1', 'Copie')}</strong> le message ci-dessous</li>
+        <li><strong>${_('modal.order.step2', 'Ouvre')}</strong> Instagram</li>
+        <li><strong>${_('modal.order.step3', 'Colle')}</strong> dans le DM et envoie</li>
       </ol>
       <pre class="lhw-modal-message" id="lhw-modal-msg"></pre>
       <div class="lhw-modal-actions">
-        <button class="btn btn-outline btn-block" id="lhw-modal-copy">📋 Copier le message</button>
-        <button class="btn btn-primary btn-block" id="lhw-modal-open">📩 Ouvrir Instagram</button>
+        <button class="btn btn-outline btn-block" id="lhw-modal-copy">${_('modal.order.copy_btn', '📋 Copier le message')}</button>
+        <button class="btn btn-primary btn-block" id="lhw-modal-open">${_('modal.order.open_ig', '📩 Ouvrir Instagram')}</button>
       </div>
-      <p class="lhw-modal-hint small muted">⚠️ Instagram n'autorise pas l'envoi automatique. Une fois sur le DM, fais "Coller" (appui long sur mobile, Cmd/Ctrl+V sur desktop) puis Envoie.</p>
+      <p class="lhw-modal-hint small muted">${_('modal.order.hint', "⚠️ Instagram n'autorise pas l'envoi automatique. Copie puis colle dans le DM.")}</p>
     </div>
   `;
   document.body.appendChild(modal);
@@ -201,7 +220,7 @@ function showOrderModal(zone) {
 
   document.getElementById('lhw-modal-copy').addEventListener('click', () => {
     navigator.clipboard.writeText(message).then(() => {
-      showToast('✓ Message copié dans le presse-papier');
+      showToast(_('toast.copied', '✓ Message copié ! Colle-le dans le DM'));
     }).catch(() => {
       const pre = document.getElementById('lhw-modal-msg');
       const range = document.createRange();
@@ -209,7 +228,7 @@ function showOrderModal(zone) {
       const sel = window.getSelection();
       sel.removeAllRanges();
       sel.addRange(range);
-      showToast('Sélectionne le texte et fais Cmd/Ctrl + C');
+      showToast(_('toast.copied', 'Sélectionne le texte et fais Cmd/Ctrl + C'));
     });
   });
 
@@ -263,6 +282,25 @@ Could you send me a quote with international shipping?
 Thank you!`;
   }
 
+  if (locale === 'es') {
+    return `Hola Lhawta 👋
+
+Me gustaría hacer un pedido desde ${countryName}:
+
+${lines}
+
+Subtotal: ${subtotalLine}
+(Costos de envío a cotizar)
+
+Mi país: ${countryName}
+Mi ciudad: (por especificar)
+Pago preferido: (Transferencia bancaria / Western Union)
+
+¿Podrían enviarme una cotización con el envío internacional?
+
+¡Gracias!`;
+  }
+
   return `Bonjour Lhawta 👋
 
 Je souhaite commander depuis ${countryName} :
@@ -285,12 +323,12 @@ Merci !`;
 function orderInternational() {
   const cart = getCart();
   if (cart.length === 0) {
-    showToast(typeof t === 'function' ? t('cart.empty.title') : 'Ton panier est vide 🛒');
+    showToast(typeof t === 'function' ? t('toast.empty') : 'Ton panier est vide 🛒');
     return;
   }
   const message = buildInternationalMessage();
   navigator.clipboard.writeText(message).then(() => {
-    showToast('✓ Message copié ! Colle-le dans le DM');
+    showToast(typeof t === 'function' ? t('toast.copied') : '✓ Message copié ! Colle-le dans le DM');
   }).catch(() => {});
   window.open(`https://ig.me/m/${IG_USERNAME}`, '_blank');
 }

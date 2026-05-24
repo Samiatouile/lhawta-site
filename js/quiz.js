@@ -31,12 +31,14 @@ function scoreProduct(product, answers) {
   let score = 0;
   const reasons = [];
 
+  const _t = (k, f) => (typeof t === 'function') ? t(k) : (f || k);
+
   // Catégorie (25)
   if (answers.category === 'any') {
     score += 25; // pas de pénalité si "peu importe"
   } else if (product.category === answers.category) {
     score += 25;
-    reasons.push("catégorie correspondante");
+    reasons.push(_t('quiz.reason.category', 'catégorie correspondante'));
   }
 
   // Taille (20)
@@ -44,7 +46,7 @@ function scoreProduct(product, answers) {
     score += 20; // pas de pénalité si "je ne sais pas"
   } else if (product.size === answers.size) {
     score += 20;
-    reasons.push("taille parfaite");
+    reasons.push(_t('quiz.reason.size', 'taille parfaite'));
   }
 
   // Budget (20)
@@ -54,20 +56,20 @@ function scoreProduct(product, answers) {
     const maxBudget = parseInt(answers.budget, 10);
     if (product.price <= maxBudget) {
       score += 20;
-      reasons.push("budget respecté");
+      reasons.push(_t('quiz.reason.budget', 'budget respecté'));
     }
   }
 
   // Style (25)
   if (product.styleTags && product.styleTags.includes(answers.style)) {
     score += 25;
-    reasons.push("style assorti");
+    reasons.push(_t('quiz.reason.style', 'style assorti'));
   }
 
   // Occasion (10)
   if (product.occasionTags && product.occasionTags.includes(answers.occasion)) {
     score += 10;
-    reasons.push("adapté à l'occasion");
+    reasons.push(_t('quiz.reason.occasion', "adapté à l'occasion"));
   }
 
   return { score, reasons };
@@ -75,24 +77,29 @@ function scoreProduct(product, answers) {
 
 /* ---------- Rendu d'une carte résultat ---------- */
 function renderMatchCard(p, score, reasons) {
+  const _t = (k, f) => (typeof t === 'function') ? t(k) : (f || k);
   const reasonText = reasons.length > 0
-    ? `Pourquoi ? ${reasons.join(", ")}.`
-    : "Ce produit est dans ta sélection.";
+    ? `${_t('quiz.reason.prefix', 'Pourquoi ?')} ${reasons.join(", ")}.`
+    : _t('quiz.reason.fallback', 'Ce produit est dans ta sélection.');
+  const sizeLabel = _t('shop.label.size', 'Taille');
+  const matchLabel = _t('quiz.match', 'match');
+  const availableLabel = _t('shop.badge.available', p.status);
+  const addCartLabel = _t('shop.btn.addcart', '🛒 Ajouter au panier');
 
   return `
     <article class="product-card">
       <div class="product-image">
         <img src="${p.image}" alt="${p.name}" loading="lazy" />
-        <span class="badge badge-ok">${p.status}</span>
-        <span class="badge-match">${score}% match</span>
+        <span class="badge badge-ok">${availableLabel}</span>
+        <span class="badge-match">${score}% ${matchLabel}</span>
       </div>
       <div class="product-body">
         <h3 class="product-name">${p.name}</h3>
-        <p class="product-meta">${p.category} · Taille ${p.size}</p>
+        <p class="product-meta">${p.category} · ${sizeLabel} ${p.size}</p>
         <p class="product-price">${typeof formatPrice === 'function' ? formatPrice(p.price) : p.price + ' DH'}</p>
         <p class="product-reason">${reasonText}</p>
         <button class="btn-add-cart" onclick="addToCart(${p.id})">
-          🛒 Ajouter au panier
+          ${addCartLabel}
         </button>
       </div>
     </article>
@@ -132,7 +139,7 @@ function handleSubmit(e) {
     noMatch.hidden = false;
   } else {
     noMatch.hidden = true;
-    summary.textContent = `${scored.length} pièce${scored.length > 1 ? 's' : ''} qui match${scored.length > 1 ? 'ent' : ''} ton profil.`;
+    summary.textContent = ((typeof t === 'function') ? t('quiz.results.summary') : '{count} pièce(s) qui match(ent) ton profil.').replace('{count}', scored.length);
     grid.innerHTML = scored
       .map(item => renderMatchCard(item.product, item.score, item.reasons))
       .join('');

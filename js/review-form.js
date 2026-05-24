@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('rv-submit');
     const originalText = submitBtn.textContent;
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Publication en cours...';
+    submitBtn.textContent = (typeof t === 'function') ? t('reviews.submitting') : 'Publication en cours...';
 
     const formData = new FormData(form);
     const payload = {
@@ -101,12 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
         form.hidden = true;
         document.getElementById('review-success').hidden = false;
       } else {
-        alert('Erreur : ' + (data.error || 'Impossible de publier ton avis. Réessaie plus tard.'));
+        alert((typeof t === 'function' ? t('reviews.error.submit') : "Erreur lors de l'envoi.") + ' ' + (data.error || ''));
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
       }
     } catch (err) {
-      alert('Erreur réseau. Vérifie ta connexion et réessaie.');
+      alert((typeof t === 'function') ? t('reviews.error.network') : 'Erreur réseau. Vérifie ta connexion et réessaie.');
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
     }

@@ -2,6 +2,22 @@
    Lhawta — Boutique (avec panier)
    ========================================================= */
 
+function categoryKey(cat) {
+  const map = {
+    'chemise': 'shirt',
+    't-shirt': 'tshirt',
+    'blouson': 'jacket',
+    'pull': 'sweater',
+    'pantalon': 'pants',
+    'veste': 'coat'
+  };
+  return map[cat] || cat;
+}
+
+function _t(key, fallback) {
+  return (typeof t === 'function') ? t(key) : (fallback || key);
+}
+
 const els = {
   grid:       document.getElementById('products-grid'),
   count:      document.getElementById('results-count'),
@@ -17,12 +33,14 @@ const els = {
 function renderProductCard(p) {
   const isSold = p.status === 'Vendu';
   const badge = isSold
-    ? `<span class="badge badge-sold">Vendu</span>`
-    : `<span class="badge badge-ok">Disponible</span>`;
+    ? `<span class="badge badge-sold">${_t('shop.badge.sold', 'Vendu')}</span>`
+    : `<span class="badge badge-ok">${_t('shop.badge.available', 'Disponible')}</span>`;
   const action = isSold
-    ? `<button class="btn btn-outline btn-block" disabled style="opacity:.6;cursor:not-allowed;">Plus disponible</button>`
-    : `<button class="btn-add-cart" onclick="addToCart(${p.id})">🛒 Ajouter au panier</button>
-       <a href="https://ig.me/m/lhawta.casablanca" target="_blank" rel="noopener" style="font-size:.78rem;color:var(--color-muted);text-align:center;text-decoration:underline;display:block;margin-top:4px;">ou DM direct</a>`;
+    ? `<button class="btn btn-outline btn-block" disabled style="opacity:.6;cursor:not-allowed;">${_t('shop.btn.unavailable', 'Plus disponible')}</button>`
+    : `<button class="btn-add-cart" onclick="addToCart(${p.id})">${_t('shop.btn.addcart', '🛒 Ajouter au panier')}</button>
+       <a href="https://ig.me/m/lhawta.casablanca" target="_blank" rel="noopener" style="font-size:.78rem;color:var(--color-muted);text-align:center;text-decoration:underline;display:block;margin-top:4px;">${_t('shop.btn.dm', 'ou DM direct')}</a>`;
+  const catLabel = _t('cat.' + categoryKey(p.category), p.category);
+  const sizeLabel = _t('shop.label.size', 'Taille');
   return `
     <article class="product-card ${isSold ? 'sold' : ''}">
       <div class="product-image">
@@ -31,7 +49,7 @@ function renderProductCard(p) {
       </div>
       <div class="product-body">
         <h3 class="product-name">${p.name}</h3>
-        <p class="product-meta">${p.category} · Taille ${p.size}</p>
+        <p class="product-meta">${catLabel} · ${sizeLabel} ${p.size}</p>
         <p class="product-condition">${p.condition}</p>
         <p class="product-price">${typeof formatPrice === 'function' ? formatPrice(p.price) : p.price + ' DH'}</p>
         <div class="product-actions">${action}</div>
@@ -61,7 +79,7 @@ function render() {
     return a.status === 'Vendu' ? 1 : -1;
   });
   els.grid.innerHTML = list.map(renderProductCard).join('');
-  els.count.textContent = `${list.length} pièce${list.length > 1 ? 's' : ''} trouvée${list.length > 1 ? 's' : ''}`;
+  els.count.textContent = list.length + ' ' + _t('shop.results.count', 'pièce(s) trouvée(s)');
   els.noResults.hidden = list.length > 0;
 }
 

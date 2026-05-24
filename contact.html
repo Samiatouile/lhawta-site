@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260535" />
+  <link rel="stylesheet" href="css/style.css?v=20260536" />
 </head>
 <body class="theme-light">
 
@@ -174,7 +174,7 @@
       </div>
 
       <p class="lhw-reviews-verified">
-        Vérifié par <span class="lhw-verified-logo">✓ Lhawta Reviews</span>
+        <span data-i18n="reviews.verified_by">Vérifié par</span> <span class="lhw-verified-logo">✓ Lhawta Reviews</span>
       </p>
 
       <div class="lhw-reviews-header">
@@ -182,7 +182,7 @@
         <div class="lhw-reviews-bigrating">
           <div class="lhw-reviews-bigstars">★★★★★</div>
           <p class="lhw-reviews-summary">
-            <strong class="lhw-reviews-avg">5.0</strong>/5 sur <strong class="lhw-reviews-count">3</strong> avis
+            <strong class="lhw-reviews-avg">5.0</strong><span data-i18n="reviews.based_on">/5 sur</span> <strong class="lhw-reviews-count">3</strong> <span data-i18n="reviews.reviews_word">avis</span>
             <span class="lhw-verified-tick">✓</span>
           </p>
         </div>
@@ -243,22 +243,48 @@
     </div>
   </footer>
 
-  <script src="js/i18n.js?v=20260535"></script>
-  <script src="js/cart.js?v=20260535"></script>
+  <script src="js/i18n.js?v=20260536"></script>
+  <script src="js/cart.js?v=20260536"></script>
   <script>
-    // Construit un message prêt à coller dans le DM Instagram
     function prepareMessage() {
       const name = document.getElementById('cf-name').value.trim() || '—';
       const ig = document.getElementById('cf-ig').value.trim() || '—';
-      const msg = document.getElementById('cf-message').value.trim() || '(aucun message)';
+      const msg = document.getElementById('cf-message').value.trim();
 
-      const text =
-`Salam Lhawta 👋
-Je suis ${name} (Instagram: ${ig})
+      const locale = (typeof getCurrentLocale === 'function') ? getCurrentLocale() : 'fr-ma';
+      const noMsgText = (typeof t === 'function') ? t('contact.dm.no_message') : '(aucun message)';
+      const finalMsg = msg || noMsgText;
 
-${msg}
+      let text;
+      if (locale === 'en') {
+        text = `Hello Lhawta 👋
+I am ${name} (Instagram: ${ig})
+
+${finalMsg}
+
+Thank you!`;
+      } else if (locale === 'es') {
+        text = `Hola Lhawta 👋
+Soy ${name} (Instagram: ${ig})
+
+${finalMsg}
+
+¡Gracias!`;
+      } else if (locale === 'fr') {
+        text = `Bonjour Lhawta 👋
+Je suis ${name} (Instagram : ${ig})
+
+${finalMsg}
 
 Merci !`;
+      } else {
+        text = `Salam Lhawta 👋
+Je suis ${name} (Instagram: ${ig})
+
+${finalMsg}
+
+Merci !`;
+      }
 
       document.getElementById('prepared-text').textContent = text;
       document.getElementById('prepared-message').hidden = false;
@@ -340,8 +366,8 @@ Merci !`;
     </div>
   </div>
 
-  <script src="js/reviews.js?v=20260535"></script>
-  <script src="js/review-form.js?v=20260535"></script>
+  <script src="js/reviews.js?v=20260536"></script>
+  <script src="js/review-form.js?v=20260536"></script>
 
 </body>
 </html>
