@@ -1303,6 +1303,9 @@ function setCountry(countryCode) {
   refreshSelectors();
   if (typeof renderCartPage === 'function')      try { renderCartPage(); } catch(e) {}
   if (typeof renderNewProducts === 'function')   try { renderNewProducts(); } catch(e) {}
+  if (typeof renderCartPage === 'function') {
+    setTimeout(() => { try { renderCartPage(); } catch(e) {} }, 50);
+  }
 }
 function setLocale(localeCode) {
   if (!TRANSLATIONS[localeCode]) return;
@@ -1313,6 +1316,9 @@ function setLocale(localeCode) {
   if (typeof renderReviewsCarousel === 'function') try { renderReviewsCarousel(); } catch(e) {}
   if (typeof renderCartPage === 'function')        try { renderCartPage(); } catch(e) {}
   if (typeof renderNewProducts === 'function')     try { renderNewProducts(); } catch(e) {}
+  if (typeof renderCartPage === 'function') {
+    setTimeout(() => { try { renderCartPage(); } catch(e) {} }, 50);
+  }
 }
 
 /* ---------- Traduction ---------- */

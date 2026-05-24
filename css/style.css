@@ -2468,3 +2468,11 @@ body.theme-light .cart-summary-international .intl-shipping-notice {
     max-width: calc(100vw - 24px);
   }
 }
+
+/* =========================================================
+   FIX : Toggle des récaps panier (Maroc / International)
+   ========================================================= */
+
+.cart-summary[hidden] {
+  display: none !important;
+}
