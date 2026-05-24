@@ -1,6 +1,6 @@
 # 🌟 Lhawta — Site officiel
 
-Site e-commerce vitrine de la marque streetwear marocaine **Lhawta** (vêtements neufs & seconde main, Casablanca).
+Site e-commerce vitrine de la marque marocaine **Lhawta** (vêtements neufs & seconde main, Casablanca).
 
 ## 🌐 URLs
 
