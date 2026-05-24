@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260539" />
+  <link rel="stylesheet" href="css/style.css?v=20260540" />
 </head>
 <body class="theme-light">
 
@@ -41,6 +41,18 @@
         <a href="livraison.html" class="active" data-i18n="nav.shipping">Livraison</a>
         <a href="https://www.instagram.com/lhawta.casablanca/" target="_blank" rel="noopener" class="nav-ig" data-i18n="nav.instagram">Instagram</a>
       </nav>
+      <!-- Sélecteur de langue -->
+      <div class="locale-selector">
+        <button class="locale-selector-btn" onclick="document.getElementById('locale-dropdown').classList.toggle('open')">
+          <span class="locale-selector-current">FR</span> ▾
+        </button>
+        <div id="locale-dropdown" class="locale-dropdown">
+          <button class="locale-option" data-locale="fr-ma" onclick="setLocale('fr-ma'); document.getElementById('locale-dropdown').classList.remove('open')">🇲🇦 FR Maroc</button>
+          <button class="locale-option" data-locale="fr" onclick="setLocale('fr'); document.getElementById('locale-dropdown').classList.remove('open')">🇫🇷 Français</button>
+          <button class="locale-option" data-locale="en" onclick="setLocale('en'); document.getElementById('locale-dropdown').classList.remove('open')">🇬🇧 English</button>
+          <button class="locale-option" data-locale="es" onclick="setLocale('es'); document.getElementById('locale-dropdown').classList.remove('open')">🇪🇸 Español</button>
+        </div>
+      </div>
       <!-- Sélecteur de pays -->
       <div class="country-selector">
         <button class="country-selector-btn" onclick="document.getElementById('country-dropdown').classList.toggle('open')">
@@ -356,9 +368,9 @@
     </div>
   </footer>
 
-  <script src="js/i18n.js?v=20260539"></script>
-  <script src="js/products.js?v=20260539"></script>
-  <script src="js/cart.js?v=20260539"></script>
+  <script src="js/i18n.js?v=20260540"></script>
+  <script src="js/products.js?v=20260540"></script>
+  <script src="js/cart.js?v=20260540"></script>
   <!-- ===== MODALE : Laisser un avis ===== -->
   <div id="review-modal" class="review-modal" hidden>
     <div class="review-modal-overlay" onclick="closeReviewModal()"></div>
@@ -434,8 +446,8 @@
     </div>
   </div>
 
-  <script src="js/reviews.js?v=20260539"></script>
-  <script src="js/review-form.js?v=20260539"></script>
+  <script src="js/reviews.js?v=20260540"></script>
+  <script src="js/review-form.js?v=20260540"></script>
 
 </body>
 </html>

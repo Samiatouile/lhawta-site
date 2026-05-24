@@ -1520,6 +1520,7 @@ function refreshAllPrices() {
 /* ---------- Selectors refresh ---------- */
 function refreshSelectors() {
   const country = getCurrentCountry();
+  const locale = getCurrentLocale();
   document.querySelectorAll('.country-selector-current').forEach(el => {
     if (window.innerWidth <= 720) {
       el.innerHTML = country.flag;
@@ -1527,13 +1528,26 @@ function refreshSelectors() {
       el.innerHTML = country.flag + ' ' + country.currency;
     }
   });
+
+  // Locale selector header (drapeau + code court)
+  const LOCALE_LABEL = {
+    'fr-ma': { short: 'FR', long: '🇲🇦 FR' },
+    'fr':    { short: 'FR', long: '🇫🇷 FR' },
+    'en':    { short: 'EN', long: '🇬🇧 EN' },
+    'es':    { short: 'ES', long: '🇪🇸 ES' }
+  };
+  const localeInfo = LOCALE_LABEL[locale] || { short: locale.toUpperCase(), long: locale.toUpperCase() };
+  document.querySelectorAll('.locale-selector-current').forEach(el => {
+    el.innerHTML = (window.innerWidth <= 720) ? localeInfo.short : localeInfo.long;
+  });
+
   document.querySelectorAll('.country-option').forEach(el => {
     const code = el.getAttribute('data-country');
     el.classList.toggle('active', code === country.code);
   });
   document.querySelectorAll('.locale-option').forEach(el => {
     const code = el.getAttribute('data-locale');
-    el.classList.toggle('active', code === getCurrentLocale());
+    el.classList.toggle('active', code === locale);
   });
   document.querySelectorAll('.footer-country-select').forEach(el => {
     if (el.value !== country.code) el.value = country.code;
@@ -1625,12 +1639,16 @@ window.addEventListener('resize', () => {
   resizeTimer = setTimeout(refreshSelectors, 150);
 });
 
-// Ferme le dropdown pays au clic en dehors
+// Ferme les dropdowns pays + langue au clic en dehors
 document.addEventListener('click', (e) => {
-  const selector = document.querySelector('.country-selector');
-  const dropdown = document.getElementById('country-dropdown');
-  if (!selector || !dropdown) return;
-  if (!selector.contains(e.target)) {
-    dropdown.classList.remove('open');
+  const countrySelector = document.querySelector('.country-selector');
+  const countryDropdown = document.getElementById('country-dropdown');
+  if (countrySelector && countryDropdown && !countrySelector.contains(e.target)) {
+    countryDropdown.classList.remove('open');
+  }
+  const localeSelector = document.querySelector('.locale-selector');
+  const localeDropdown = document.getElementById('locale-dropdown');
+  if (localeSelector && localeDropdown && !localeSelector.contains(e.target)) {
+    localeDropdown.classList.remove('open');
   }
 });

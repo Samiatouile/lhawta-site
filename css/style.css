@@ -2476,3 +2476,98 @@ body.theme-light .cart-summary-international .intl-shipping-notice {
 .cart-summary[hidden] {
   display: none !important;
 }
+
+/* =========================================================
+   LOCALE SELECTOR — Médaillon header (mirror country selector)
+   ========================================================= */
+
+.locale-selector {
+  position: relative;
+  display: inline-block;
+  margin-left: 6px;
+}
+.locale-selector-btn {
+  background: transparent;
+  color: var(--color-text-light);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: .85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.locale-selector-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.locale-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #000;
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-md);
+  padding: 6px;
+  min-width: 180px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 200;
+  box-shadow: var(--shadow-md);
+}
+.locale-dropdown.open { display: flex; }
+.locale-dropdown .locale-option {
+  background: transparent;
+  color: var(--color-text-light);
+  border: none;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: .9rem;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background .15s, color .15s;
+}
+.locale-dropdown .locale-option:hover {
+  background: var(--color-bg-section);
+  color: var(--color-accent);
+}
+.locale-dropdown .locale-option.active {
+  background: var(--color-accent);
+  color: #000;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .locale-selector { margin-left: 2px; }
+  .locale-selector-btn {
+    padding: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid var(--color-accent);
+    background: var(--color-bg-section, #1A1A1A);
+    font-size: .7rem;
+    line-height: 1;
+    box-shadow: 0 0 8px rgba(245, 225, 58, 0.3);
+    justify-content: center;
+  }
+  .locale-selector-btn:hover,
+  .locale-selector-btn:active {
+    transform: scale(1.08);
+    box-shadow: 0 0 14px var(--color-accent-glow);
+  }
+  /* Cache la flèche, garde le code locale */
+  .locale-selector-btn { font-size: 0; }
+  .locale-selector-btn .locale-selector-current { font-size: .72rem; }
+  .locale-dropdown {
+    right: -10px;
+    min-width: 200px;
+    max-width: calc(100vw - 24px);
+  }
+}
