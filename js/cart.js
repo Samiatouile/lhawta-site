@@ -37,18 +37,28 @@ function addToCart(productId) {
     showToast(typeof t === 'function' ? t('toast.already_in_cart') : 'Cette pièce est déjà dans ton panier ✓');
     return;
   }
+  const resolvedName = (typeof tProduct === 'function') ? tProduct(product, 'name') : product.name;
   cart.push({
     id: product.id,
     reference: product.reference,
-    name: product.name,
+    name: resolvedName,
+    name_i18n: product.name,
     price: product.price,
     size: product.size,
     image: product.image,
   });
   saveCart(cart);
   showToast(
-    (typeof t === 'function' ? t('toast.added') : '✓ {item} ajouté au panier').replace('{item}', product.name)
+    (typeof t === 'function' ? t('toast.added') : '✓ {item} ajouté au panier').replace('{item}', resolvedName)
   );
+}
+
+function getCartItemName(item) {
+  if (item.name_i18n && typeof item.name_i18n === 'object') {
+    const locale = (typeof getCurrentLocale === 'function') ? getCurrentLocale() : 'fr-ma';
+    return item.name_i18n[locale] || item.name_i18n['fr-ma'] || item.name;
+  }
+  return item.name;
 }
 
 function removeFromCart(productId) {
@@ -119,7 +129,7 @@ function buildInstagramMessage(zone) {
   const sizeLabel = _('shop.label.size', 'Taille');
 
   const lines = cart.map(item =>
-    `• ${item.reference} — ${item.name} (${sizeLabel} ${item.size}) — ${item.price} DH`
+    `• ${item.reference} — ${getCartItemName(item)} (${sizeLabel} ${item.size}) — ${item.price} DH`
   ).join('\n');
 
   const subtotal = getCartSubtotal();
@@ -257,7 +267,7 @@ function buildInternationalMessage() {
   };
 
   const lines = cart.map(item =>
-    `• ${item.reference} — ${item.name} (${isEnglish ? 'Size' : 'Taille'} ${item.size}) — ${formatDouble(item.price)}`
+    `• ${item.reference} — ${getCartItemName(item)} (${isEnglish ? 'Size' : 'Taille'} ${item.size}) — ${formatDouble(item.price)}`
   ).join('\n');
 
   const countryName = isEnglish ? country.name_en : country.name_fr;

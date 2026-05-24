@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260536" />
+  <link rel="stylesheet" href="css/style.css?v=20260537" />
 </head>
 <body class="theme-dark">
 
@@ -231,9 +231,9 @@
   </footer>
 
   <!-- ===== SCRIPTS ===== -->
-  <script src="js/i18n.js?v=20260536"></script>
-  <script src="js/products.js?v=20260536"></script>
-  <script src="js/cart.js?v=20260536"></script>
+  <script src="js/i18n.js?v=20260537"></script>
+  <script src="js/products.js?v=20260537"></script>
+  <script src="js/cart.js?v=20260537"></script>
   <script>
     function renderNewProducts() {
       const container = document.getElementById('new-products');
@@ -243,14 +243,16 @@
       const badgeLabel = _('shop.badge.available', 'Disponible');
       const sizeLabel = _('shop.label.size', 'Taille');
       const addCartLabel = _('shop.btn.addcart', '🛒 Ajouter au panier');
-      container.innerHTML = available.map(p => `
+      container.innerHTML = available.map(p => {
+        const pName = (typeof tProduct === 'function') ? tProduct(p, 'name') : p.name;
+        return `
         <article class="product-card">
           <div class="product-image">
-            <img src="${p.image}" alt="${p.name}" loading="lazy" />
+            <img src="${p.image}" alt="${pName}" loading="lazy" />
             <span class="badge badge-ok">${badgeLabel}</span>
           </div>
           <div class="product-body">
-            <h3 class="product-name">${p.name}</h3>
+            <h3 class="product-name">${pName}</h3>
             <p class="product-meta">${p.category} · ${sizeLabel} ${p.size}</p>
             <p class="product-price" data-price-mad="${p.price}">${typeof formatPrice === 'function' ? formatPrice(p.price) : p.price + ' DH'}</p>
             <button class="btn-add-cart" onclick="addToCart(${p.id})">
@@ -258,7 +260,8 @@
             </button>
           </div>
         </article>
-      `).join('');
+      `;
+      }).join('');
     }
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(renderNewProducts, 50);
@@ -339,8 +342,8 @@
     </div>
   </div>
 
-  <script src="js/reviews.js?v=20260536"></script>
-  <script src="js/review-form.js?v=20260536"></script>
+  <script src="js/reviews.js?v=20260537"></script>
+  <script src="js/review-form.js?v=20260537"></script>
 
 </body>
 </html>

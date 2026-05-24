@@ -41,16 +41,18 @@ function renderProductCard(p) {
        <a href="https://ig.me/m/lhawta.casablanca" target="_blank" rel="noopener" style="font-size:.78rem;color:var(--color-muted);text-align:center;text-decoration:underline;display:block;margin-top:4px;">${_t('shop.btn.dm', 'ou DM direct')}</a>`;
   const catLabel = _t('cat.' + categoryKey(p.category), p.category);
   const sizeLabel = _t('shop.label.size', 'Taille');
+  const pName = (typeof tProduct === 'function') ? tProduct(p, 'name') : p.name;
+  const pCondition = (typeof tProduct === 'function') ? tProduct(p, 'condition') : p.condition;
   return `
     <article class="product-card ${isSold ? 'sold' : ''}">
       <div class="product-image">
-        <img src="${p.image}" alt="${p.name}" loading="lazy" />
+        <img src="${p.image}" alt="${pName}" loading="lazy" />
         ${badge}
       </div>
       <div class="product-body">
-        <h3 class="product-name">${p.name}</h3>
+        <h3 class="product-name">${pName}</h3>
         <p class="product-meta">${catLabel} · ${sizeLabel} ${p.size}</p>
-        <p class="product-condition">${p.condition}</p>
+        <p class="product-condition">${pCondition}</p>
         <p class="product-price">${typeof formatPrice === 'function' ? formatPrice(p.price) : p.price + ' DH'}</p>
         <div class="product-actions">${action}</div>
       </div>

@@ -86,15 +86,16 @@ function renderMatchCard(p, score, reasons) {
   const availableLabel = _t('shop.badge.available', p.status);
   const addCartLabel = _t('shop.btn.addcart', '🛒 Ajouter au panier');
 
+  const pName = (typeof tProduct === 'function') ? tProduct(p, 'name') : p.name;
   return `
     <article class="product-card">
       <div class="product-image">
-        <img src="${p.image}" alt="${p.name}" loading="lazy" />
+        <img src="${p.image}" alt="${pName}" loading="lazy" />
         <span class="badge badge-ok">${availableLabel}</span>
         <span class="badge-match">${score}% ${matchLabel}</span>
       </div>
       <div class="product-body">
-        <h3 class="product-name">${p.name}</h3>
+        <h3 class="product-name">${pName}</h3>
         <p class="product-meta">${p.category} · ${sizeLabel} ${p.size}</p>
         <p class="product-price">${typeof formatPrice === 'function' ? formatPrice(p.price) : p.price + ' DH'}</p>
         <p class="product-reason">${reasonText}</p>

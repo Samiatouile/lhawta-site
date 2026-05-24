@@ -6,28 +6,64 @@ const REVIEWS_API_URL = 'https://lhawta-reviews.samia-touile.workers.dev/reviews
 
 const SEED_REVIEWS = [
   {
-    title: "Service au top, livraison rapide",
-    text: "J'ai commandé une chemise vintage, livrée le jour même à Casa. Qualité au rendez-vous.",
+    rating: 5,
     name: "Yassine B.",
     city: "Casablanca",
-    rating: 5,
-    item: "Chemise vintage rayée"
+    title: {
+      'fr-ma': "Service au top, livraison rapide",
+      'fr':    "Service excellent, livraison rapide",
+      'en':    "Top service, fast delivery"
+    },
+    text: {
+      'fr-ma': "J'ai commandé une chemise vintage, livrée le jour même à Casa. Qualité au rendez-vous.",
+      'fr':    "J'ai commandé une chemise vintage, livrée le jour même à Casablanca. La qualité est au rendez-vous.",
+      'en':    "I ordered a vintage shirt, delivered the same day in Casablanca. Great quality."
+    },
+    item: {
+      'fr-ma': "Chemise vintage rayée",
+      'fr':    "Chemise vintage rayée",
+      'en':    "Striped vintage shirt"
+    }
   },
   {
-    title: "Rassurée et bien servie",
-    text: "J'étais hésitante de payer à l'avance depuis Rabat, mais le service client est top. Reçu en 48h.",
+    rating: 5,
     name: "Salma E.",
     city: "Rabat",
-    rating: 5,
-    item: "Veste denim"
+    title: {
+      'fr-ma': "Rassurée et bien servie",
+      'fr':    "Rassurée et bien accompagnée",
+      'en':    "Reassured and well served"
+    },
+    text: {
+      'fr-ma': "J'étais hésitante de payer à l'avance depuis Rabat, mais le service client est top. Reçu en 48h.",
+      'fr':    "J'hésitais à payer à l'avance depuis Rabat, mais le service client est excellent. Reçu en 48h.",
+      'en':    "I was hesitant to pay in advance from Rabat, but customer service is excellent. Received in 48h."
+    },
+    item: {
+      'fr-ma': "Veste denim",
+      'fr':    "Veste en jean",
+      'en':    "Denim jacket"
+    }
   },
   {
-    title: "100% authentique",
-    text: "Drari Lhawta connaissent leur truc. Les pièces sont propres, pas de fake. Je recommande à 100%.",
+    rating: 5,
     name: "Ayoub M.",
     city: "Casablanca",
-    rating: 5,
-    item: "Blouson noir oversize"
+    title: {
+      'fr-ma': "100% authentique",
+      'fr':    "100% authentique",
+      'en':    "100% authentic"
+    },
+    text: {
+      'fr-ma': "Drari Lhawta connaissent leur truc. Les pièces sont propres, pas de fake. Je recommande à 100%.",
+      'fr':    "L'équipe Lhawta s'y connaît vraiment. Les pièces sont impeccables, aucune contrefaçon. Je recommande à 100%.",
+      'en':    "The Lhawta team really knows their stuff. Pieces are pristine, no fakes. I recommend 100%."
+    },
+    item: {
+      'fr-ma': "Blouson noir oversize",
+      'fr':    "Blouson noir oversize",
+      'en':    "Black oversize jacket"
+    }
   }
 ];
 
@@ -49,16 +85,31 @@ function escapeHtml(str) {
 
 function renderReviewCard(review) {
   const stars = '★'.repeat(review.rating);
+
+  const getLocalized = (val) => {
+    if (!val) return '';
+    if (typeof val === 'string') return val;
+    if (typeof val === 'object') {
+      const locale = (typeof getCurrentLocale === 'function') ? getCurrentLocale() : 'fr-ma';
+      return val[locale] || val['fr-ma'] || val['fr'] || val['en'] || Object.values(val)[0] || '';
+    }
+    return '';
+  };
+
+  const title = getLocalized(review.title);
+  const text  = getLocalized(review.text);
+  const item  = getLocalized(review.item);
+
   return `
     <article class="lhw-review-card">
       <div class="lhw-review-stars">${stars}</div>
-      <h3 class="lhw-review-title">${escapeHtml(review.title)}</h3>
-      <p class="lhw-review-text">${escapeHtml(review.text)}</p>
+      <h3 class="lhw-review-title">${escapeHtml(title)}</h3>
+      <p class="lhw-review-text">${escapeHtml(text)}</p>
       <div class="lhw-review-footer">
         <div class="lhw-review-avatar">${escapeHtml(getInitials(review.name))}</div>
         <div class="lhw-review-author">
           <strong>${escapeHtml(review.name)}</strong>
-          <span>${escapeHtml(review.city)}${review.item ? ' · ' + escapeHtml(review.item) : ''}</span>
+          <span>${escapeHtml(review.city)}${item ? ' · ' + escapeHtml(item) : ''}</span>
         </div>
       </div>
     </article>

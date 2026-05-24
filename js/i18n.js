@@ -1301,18 +1301,18 @@ function setCountry(countryCode) {
   applyTranslations();
   refreshAllPrices();
   refreshSelectors();
-  if (typeof renderCartPage === 'function') {
-    try { renderCartPage(); } catch(e) {}
-  }
+  if (typeof renderCartPage === 'function')      try { renderCartPage(); } catch(e) {}
+  if (typeof renderNewProducts === 'function')   try { renderNewProducts(); } catch(e) {}
 }
 function setLocale(localeCode) {
   if (!TRANSLATIONS[localeCode]) return;
   localStorage.setItem(STORAGE_LOCALE_KEY, localeCode);
   applyTranslations();
   refreshSelectors();
-  if (typeof renderCartPage === 'function') {
-    try { renderCartPage(); } catch(e) {}
-  }
+  if (typeof render === 'function')                try { render(); } catch(e) {}
+  if (typeof renderReviewsCarousel === 'function') try { renderReviewsCarousel(); } catch(e) {}
+  if (typeof renderCartPage === 'function')        try { renderCartPage(); } catch(e) {}
+  if (typeof renderNewProducts === 'function')     try { renderNewProducts(); } catch(e) {}
 }
 
 /* ---------- Traduction ---------- */
