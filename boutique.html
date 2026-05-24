@@ -6,13 +6,13 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>Boutique — Lhawta | الهَوتة</title>
-  <meta name="description" content="Toute la boutique Lhawta : chemises, t-shirts, blousons, pulls, pantalons. Neuf & seconde main à Casablanca." />
+  <title data-i18n-title="meta.shop.title">Boutique — Lhawta | الهَوتة</title>
+  <meta name="description" data-i18n-meta-desc="meta.shop.desc" content="Toute la boutique Lhawta : chemises, t-shirts, blousons, pulls, pantalons. Neuf & seconde main à Casablanca." />
   <!-- Google Fonts : Anton (logo) + Inter (corps) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260538" />
+  <link rel="stylesheet" href="css/style.css?v=20260539" />
 </head>
 <body class="theme-light">
 
@@ -52,7 +52,7 @@
   </header>
 
   <!-- Bannière promo livraison gratuite -->
-  <div class="promo-banner" data-i18n="shop.promo">🎁 Livraison OFFERTE à partir de 500 DH d'achat — partout au Maroc</div>
+  <div class="promo-banner content-maroc" data-i18n="shop.promo">🎁 Livraison OFFERTE à partir de 500 DH d'achat — partout au Maroc</div>
 
   <!-- ===== PAGE HEADER ===== -->
   <section class="page-header">
@@ -122,7 +122,7 @@
   </section>
 
   <!-- ===== BANNIÈRE RÉASSURANCE ===== -->
-  <section class="trust-banner">
+  <section class="trust-banner content-maroc">
     <div class="container trust-banner-inner">
       <a href="livraison.html" class="trust-item">
         <div class="trust-icon">🎁</div>
@@ -147,6 +147,33 @@
       </a>
     </div>
   </section>
+  <!-- ===== TRUST BANNER INTERNATIONAL ===== -->
+  <section class="trust-banner content-international" hidden>
+    <div class="container trust-banner-inner">
+      <a href="livraison.html" class="trust-item">
+        <div class="trust-icon">🌍</div>
+        <div class="trust-text">
+          <strong data-i18n="trust.intl.shipping.title">Expédition mondiale</strong>
+          <span data-i18n="trust.intl.shipping.subtitle">Devis en 48h, expédition sous 1-3 semaines</span>
+        </div>
+      </a>
+      <a href="livraison.html" class="trust-item">
+        <div class="trust-icon">💳</div>
+        <div class="trust-text">
+          <strong data-i18n="trust.intl.payment.title">Paiement sécurisé</strong>
+          <span data-i18n="trust.intl.payment.subtitle">Virement bancaire ou Western Union</span>
+        </div>
+      </a>
+      <a href="contact.html" class="trust-item">
+        <div class="trust-icon">🤝</div>
+        <div class="trust-text">
+          <strong data-i18n="trust.intl.support.title">Service client 7j/7</strong>
+          <span data-i18n="trust.intl.support.subtitle">Réponse rapide en DM Instagram</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
 
   <!-- ===== FOOTER ===== -->
   <!-- ===== AVIS CLIENTS ===== -->
@@ -215,15 +242,15 @@
       </div>
       <div class="footer-locale">
         <div class="footer-locale-block">
-          <span class="muted small">Langue :</span>
+          <span class="muted small" data-i18n="footer.lang_label">Langue :</span>
           <button class="locale-option" data-locale="fr-ma" onclick="setLocale('fr-ma')">🇲🇦 FR Maroc</button>
           <button class="locale-option" data-locale="fr" onclick="setLocale('fr')">🇫🇷 Français</button>
           <button class="locale-option" data-locale="en" onclick="setLocale('en')">🇬🇧 English</button>
           <button class="locale-option" data-locale="es" onclick="setLocale('es')">🇪🇸 Español</button>
         </div>
         <div class="footer-locale-block">
-          <span class="muted small">Pays :</span>
-          <select onchange="setCountry(this.value)" class="footer-country-select">
+          <span class="muted small" data-i18n="footer.country_label">Pays :</span>
+          <select onchange="setCountry(this.value)" class="footer-country-select" id="footer-country-select">
             <option value="MA">🇲🇦 Maroc (MAD)</option>
             <option value="FR">🇫🇷 France (EUR)</option>
             <option value="BE">🇧🇪 Belgique (EUR)</option>
@@ -238,10 +265,10 @@
     </div>
   </footer>
 
-  <script src="js/i18n.js?v=20260538"></script>
-  <script src="js/products.js?v=20260538"></script>
-  <script src="js/cart.js?v=20260538"></script>
-  <script src="js/boutique.js?v=20260538"></script>
+  <script src="js/i18n.js?v=20260539"></script>
+  <script src="js/products.js?v=20260539"></script>
+  <script src="js/cart.js?v=20260539"></script>
+  <script src="js/boutique.js?v=20260539"></script>
   <!-- ===== MODALE : Laisser un avis ===== -->
   <div id="review-modal" class="review-modal" hidden>
     <div class="review-modal-overlay" onclick="closeReviewModal()"></div>
@@ -317,8 +344,8 @@
     </div>
   </div>
 
-  <script src="js/reviews.js?v=20260538"></script>
-  <script src="js/review-form.js?v=20260538"></script>
+  <script src="js/reviews.js?v=20260539"></script>
+  <script src="js/review-form.js?v=20260539"></script>
 
 </body>
 </html>

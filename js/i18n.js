@@ -8,6 +8,15 @@
 
 const STORAGE_LOCALE_KEY  = 'lhawta_locale_v1';
 const STORAGE_COUNTRY_KEY = 'lhawta_country_v1';
+const STORAGE_LOCALE_EXPLICIT_KEY = 'lhawta_locale_explicit_v1';
+
+function isLocaleExplicit() {
+  return localStorage.getItem(STORAGE_LOCALE_EXPLICIT_KEY) === '1';
+}
+function setLocaleExplicit(flag) {
+  if (flag) localStorage.setItem(STORAGE_LOCALE_EXPLICIT_KEY, '1');
+  else localStorage.removeItem(STORAGE_LOCALE_EXPLICIT_KEY);
+}
 
 const COUNTRIES = {
   MA: { code: 'MA', flag: '🇲🇦', name_fr: 'Maroc',          name_en: 'Morocco',       currency: 'MAD', locale: 'fr-ma' },
@@ -334,6 +343,29 @@ const TRANSLATIONS = {
     "reviews.error.submit": "Erreur : impossible de publier ton avis. Réessaie plus tard.",
     "reviews.error.network": "Erreur réseau. Vérifie ta connexion et réessaie.",
 
+    // ===== FOOTER LABELS + META + TRUST INTL + ICON =====
+    "footer.lang_label": "Langue :",
+    "footer.country_label": "Pays :",
+    "meta.index.title": "Lhawta | الهَوتة — Vêtements neufs & seconde main à Casablanca",
+    "meta.index.desc": "Lhawta — Pièces neuves & seconde main, sélectionnées à Casablanca. Streetwear, vintage, chemises, blousons, t-shirts. Commande par DM Instagram.",
+    "meta.shop.title": "Boutique — Lhawta | الهَوتة",
+    "meta.shop.desc": "Toute la boutique Lhawta : chemises, t-shirts, blousons, pulls, pantalons. Neuf & seconde main à Casablanca.",
+    "meta.quiz.title": "Trouve ta pièce — Lhawta | الهَوتة",
+    "meta.quiz.desc": "Réponds au quiz Lhawta et trouve la pièce qui te correspond. Sélection personnalisée à Casablanca.",
+    "meta.contact.title": "Contact — Lhawta | الهَوتة",
+    "meta.contact.desc": "Contacte Lhawta sur Instagram ou WhatsApp pour commander une pièce. Casablanca.",
+    "meta.cart.title": "Mon panier — Lhawta | الهَوتة",
+    "meta.cart.desc": "Ton panier Lhawta : vérifie tes pièces avant d'envoyer ta commande sur Instagram.",
+    "meta.shipping.title": "Livraison & Paiement — Lhawta | Casablanca & Maroc",
+    "meta.shipping.desc": "Conditions de livraison Lhawta : expédition 48h partout au Maroc, paiement à la livraison sur Casablanca.",
+    "trust.intl.shipping.title": "Expédition mondiale",
+    "trust.intl.shipping.subtitle": "Devis en 48h, expédition sous 1-3 semaines",
+    "trust.intl.payment.title": "Paiement sécurisé",
+    "trust.intl.payment.subtitle": "Virement bancaire ou Western Union",
+    "trust.intl.support.title": "Service client 7j/7",
+    "trust.intl.support.subtitle": "Réponse rapide en DM Instagram",
+    "home.why.f3.icon": "DH",
+
     'banner.detected': 'On a détecté que tu es en {country}',
     'banner.keep': 'Garder',
     'banner.change': 'Changer'
@@ -646,6 +678,29 @@ const TRANSLATIONS = {
     "reviews.submitting": "Publication en cours...",
     "reviews.error.submit": "Erreur : impossible de publier votre avis. Réessayez plus tard.",
     "reviews.error.network": "Erreur réseau. Vérifiez votre connexion et réessayez.",
+
+    // ===== FOOTER LABELS + META + TRUST INTL + ICON =====
+    "footer.lang_label": "Langue :",
+    "footer.country_label": "Pays :",
+    "meta.index.title": "Lhawta | الهَوتة — Vêtements neufs & seconde main",
+    "meta.index.desc": "Lhawta — Pièces neuves et seconde main, sélectionnées à Casablanca. Streetwear, vintage, chemises, blousons, t-shirts. Commande par message Instagram.",
+    "meta.shop.title": "Boutique — Lhawta",
+    "meta.shop.desc": "Toute la boutique Lhawta : chemises, t-shirts, blousons, pulls, pantalons. Neuf et seconde main, expédition internationale.",
+    "meta.quiz.title": "Trouvez votre pièce — Lhawta",
+    "meta.quiz.desc": "Répondez au quiz Lhawta et trouvez la pièce qui vous correspond. Sélection personnalisée.",
+    "meta.contact.title": "Contact — Lhawta",
+    "meta.contact.desc": "Contactez Lhawta sur Instagram pour commander une pièce. Expédition internationale.",
+    "meta.cart.title": "Mon panier — Lhawta",
+    "meta.cart.desc": "Votre panier Lhawta : vérifiez vos pièces avant d'envoyer votre commande.",
+    "meta.shipping.title": "Livraison & Paiement — Lhawta",
+    "meta.shipping.desc": "Conditions de livraison Lhawta : expédition internationale, paiement sécurisé, service client 7j/7.",
+    "trust.intl.shipping.title": "Expédition mondiale",
+    "trust.intl.shipping.subtitle": "Devis en 48h, expédition sous 1-3 semaines",
+    "trust.intl.payment.title": "Paiement sécurisé",
+    "trust.intl.payment.subtitle": "Virement bancaire ou Western Union",
+    "trust.intl.support.title": "Service client 7j/7",
+    "trust.intl.support.subtitle": "Réponse rapide en message Instagram",
+    "home.why.f3.icon": "€",
 
     'banner.detected': 'Nous avons détecté que vous êtes en {country}',
     'banner.keep': 'Garder',
@@ -960,6 +1015,29 @@ const TRANSLATIONS = {
     "reviews.error.submit": "Error: no se pudo publicar tu opinión. Inténtalo más tarde.",
     "reviews.error.network": "Error de red. Revisa tu conexión e inténtalo de nuevo.",
 
+    // ===== FOOTER LABELS + META + TRUST INTL + ICON =====
+    "footer.lang_label": "Idioma:",
+    "footer.country_label": "País:",
+    "meta.index.title": "Lhawta — Ropa nueva y de segunda mano desde Casablanca",
+    "meta.index.desc": "Lhawta — Piezas nuevas y de segunda mano, seleccionadas en Casablanca. Streetwear, vintage, camisas, cazadoras, camisetas. Pedido por DM de Instagram.",
+    "meta.shop.title": "Tienda — Lhawta",
+    "meta.shop.desc": "Toda la tienda Lhawta: camisas, camisetas, cazadoras, jerseys, pantalones. Nuevo y de segunda mano, envío internacional.",
+    "meta.quiz.title": "Encuentra tu pieza — Lhawta",
+    "meta.quiz.desc": "Responde al quiz Lhawta y encuentra la pieza que te corresponde. Selección personalizada.",
+    "meta.contact.title": "Contacto — Lhawta",
+    "meta.contact.desc": "Contacta a Lhawta por Instagram para pedir una pieza. Envío internacional.",
+    "meta.cart.title": "Mi carrito — Lhawta",
+    "meta.cart.desc": "Tu carrito Lhawta: revisa tus piezas antes de enviar tu pedido.",
+    "meta.shipping.title": "Envío y Pago — Lhawta",
+    "meta.shipping.desc": "Política de envío Lhawta: envío internacional, pago seguro, atención al cliente 7/7.",
+    "trust.intl.shipping.title": "Envío mundial",
+    "trust.intl.shipping.subtitle": "Presupuesto en 48h, envío en 1-3 semanas",
+    "trust.intl.payment.title": "Pago seguro",
+    "trust.intl.payment.subtitle": "Transferencia bancaria o Western Union",
+    "trust.intl.support.title": "Atención al cliente 7/7",
+    "trust.intl.support.subtitle": "Respuesta rápida por DM de Instagram",
+    "home.why.f3.icon": "€",
+
     'banner.detected': 'Hemos detectado que estás en {country}',
     'banner.keep': 'Mantener',
     'banner.change': 'Cambiar'
@@ -1273,6 +1351,29 @@ const TRANSLATIONS = {
     "reviews.error.submit": "Error: unable to publish your review. Please try again later.",
     "reviews.error.network": "Network error. Check your connection and try again.",
 
+    // ===== FOOTER LABELS + META + TRUST INTL + ICON =====
+    "footer.lang_label": "Language:",
+    "footer.country_label": "Country:",
+    "meta.index.title": "Lhawta — New & secondhand clothing from Casablanca",
+    "meta.index.desc": "Lhawta — New and secondhand pieces, hand-picked in Casablanca. Streetwear, vintage, shirts, jackets, t-shirts. Order via Instagram DM.",
+    "meta.shop.title": "Shop — Lhawta",
+    "meta.shop.desc": "The full Lhawta shop: shirts, t-shirts, jackets, sweaters, pants. New and secondhand, worldwide shipping.",
+    "meta.quiz.title": "Find Your Piece — Lhawta",
+    "meta.quiz.desc": "Take the Lhawta quiz and find the piece that suits you. Personalized selection.",
+    "meta.contact.title": "Contact — Lhawta",
+    "meta.contact.desc": "Contact Lhawta on Instagram to order a piece. Worldwide shipping.",
+    "meta.cart.title": "My Cart — Lhawta",
+    "meta.cart.desc": "Your Lhawta cart: review your pieces before sending your order.",
+    "meta.shipping.title": "Shipping & Payment — Lhawta",
+    "meta.shipping.desc": "Lhawta shipping policy: worldwide delivery, secure payment, 7/7 customer support.",
+    "trust.intl.shipping.title": "Worldwide shipping",
+    "trust.intl.shipping.subtitle": "Quote in 48h, shipped within 1-3 weeks",
+    "trust.intl.payment.title": "Secure payment",
+    "trust.intl.payment.subtitle": "Bank transfer or Western Union",
+    "trust.intl.support.title": "7/7 Customer support",
+    "trust.intl.support.subtitle": "Quick reply via Instagram DM",
+    "home.why.f3.icon": "€",
+
     'banner.detected': "We detected you're in {country}",
     'banner.keep': 'Keep',
     'banner.change': 'Change'
@@ -1297,12 +1398,19 @@ function getCurrentCurrency() { return getCurrentCountry().currency; }
 function setCountry(countryCode) {
   if (!COUNTRIES[countryCode]) return;
   localStorage.setItem(STORAGE_COUNTRY_KEY, countryCode);
-  localStorage.setItem(STORAGE_LOCALE_KEY, COUNTRIES[countryCode].locale);
+
+  // Si la langue n'a PAS été choisie explicitement, on aligne sur celle par défaut du pays
+  if (!isLocaleExplicit()) {
+    localStorage.setItem(STORAGE_LOCALE_KEY, COUNTRIES[countryCode].locale);
+  }
+
   applyTranslations();
   refreshAllPrices();
   refreshSelectors();
-  if (typeof renderCartPage === 'function')      try { renderCartPage(); } catch(e) {}
-  if (typeof renderNewProducts === 'function')   try { renderNewProducts(); } catch(e) {}
+
+  if (typeof render === 'function')                try { render(); } catch(e) {}
+  if (typeof renderReviewsCarousel === 'function') try { renderReviewsCarousel(); } catch(e) {}
+  if (typeof renderNewProducts === 'function')     try { renderNewProducts(); } catch(e) {}
   if (typeof renderCartPage === 'function') {
     setTimeout(() => { try { renderCartPage(); } catch(e) {} }, 50);
   }
@@ -1310,11 +1418,13 @@ function setCountry(countryCode) {
 function setLocale(localeCode) {
   if (!TRANSLATIONS[localeCode]) return;
   localStorage.setItem(STORAGE_LOCALE_KEY, localeCode);
+  setLocaleExplicit(true);
+
   applyTranslations();
   refreshSelectors();
+
   if (typeof render === 'function')                try { render(); } catch(e) {}
   if (typeof renderReviewsCarousel === 'function') try { renderReviewsCarousel(); } catch(e) {}
-  if (typeof renderCartPage === 'function')        try { renderCartPage(); } catch(e) {}
   if (typeof renderNewProducts === 'function')     try { renderNewProducts(); } catch(e) {}
   if (typeof renderCartPage === 'function') {
     setTimeout(() => { try { renderCartPage(); } catch(e) {} }, 50);
@@ -1352,15 +1462,33 @@ function applyTranslations() {
     if (!key) return;
     el.innerHTML = t(key);
   });
+
   document.documentElement.setAttribute('lang', getCurrentLocale().split('-')[0]);
 
-  // Affichage conditionnel selon le pays (page livraison)
+  // Meta tags multilingues
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.getAttribute('data-i18n-title');
+    const val = t(key);
+    if (val && val !== key) {
+      el.textContent = val;
+      document.title = val;
+    }
+  });
+  document.querySelectorAll('[data-i18n-meta-desc]').forEach(el => {
+    const key = el.getAttribute('data-i18n-meta-desc');
+    const val = t(key);
+    if (val && val !== key) el.setAttribute('content', val);
+  });
+
+  // Affichage conditionnel selon le pays
   const isMaroc = getCurrentCountry().code === 'MA';
   document.querySelectorAll('.content-maroc').forEach(el => {
     el.hidden = !isMaroc;
+    el.style.display = isMaroc ? '' : 'none';
   });
   document.querySelectorAll('.content-international').forEach(el => {
     el.hidden = isMaroc;
+    el.style.display = isMaroc ? 'none' : '';
   });
 
   // Sous-titre de la page livraison adapté
@@ -1408,8 +1536,12 @@ function refreshSelectors() {
     el.classList.toggle('active', code === getCurrentLocale());
   });
   document.querySelectorAll('.footer-country-select').forEach(el => {
-    el.value = country.code;
+    if (el.value !== country.code) el.value = country.code;
   });
+  const footerSelect = document.getElementById('footer-country-select');
+  if (footerSelect && footerSelect.value !== country.code) {
+    footerSelect.value = country.code;
+  }
 }
 
 /* ---------- IP detection ---------- */
