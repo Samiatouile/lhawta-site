@@ -1,0 +1,44 @@
+name: Deploy to GitHub Pages
+
+# Redéploie le site (statique) à chaque push sur main.
+# Garantit que la version en ligne correspond toujours au dernier commit
+# de main — évite qu'une ancienne version reste servie (ex: sélecteur de
+# langue manquant parce qu'un build Pages est resté bloqué).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un seul déploiement à la fois ; on ne coupe pas un déploiement en cours.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Le site est statique et servi depuis la racine du dépôt.
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
